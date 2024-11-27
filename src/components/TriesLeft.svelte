@@ -1,5 +1,5 @@
 <script>
-    let { turnsLeft, totalTurns = 5 } = $props();
+    let { triesLeft, totalTries = 5 } = $props();
 </script>
 
 {#snippet TurnDiv({ left })}
@@ -11,8 +11,8 @@
 {/snippet}
 
 <div class="flex w-min gap-5 rounded-md bg-gray-800/20 px-3 py-1">
-    {#each Array(totalTurns) as _, i}
-        {@render TurnDiv({ left: i < turnsLeft })}
+    {#each Array(totalTries) as _, i}
+        {@render TurnDiv({ left: i < triesLeft })}
     {/each}
 </div>
 

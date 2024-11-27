@@ -1,9 +1,9 @@
 <script>
     import SubmitButton from '../components/SubmitButton.svelte';
-    import TurnsLeft from '../components/TurnsLeft.svelte';
+    import TriesLeft from '../components/TriesLeft.svelte';
 </script>
 
 <div class="h-full w-full bg-gray-900">
     <SubmitButton />
-    <TurnsLeft turnsLeft={4} totalTurn={6} />
+    <TriesLeft triesLeft={4} totalTries={6} />
 </div>
