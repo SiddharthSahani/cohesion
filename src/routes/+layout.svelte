@@ -12,7 +12,7 @@
             <Sun size={32} strokeWidth={2} />
         </button>
     </div>
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex h-full flex-col items-center justify-center">
         {@render children()}
     </div>
     <div class="w-full text-center text-3xl font-bold text-white underline">

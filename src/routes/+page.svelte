@@ -30,7 +30,7 @@
     };
 </script>
 
-<div class="">
+<div class="h-full">
     <BoardHeader {shuffleBoardFn} {submitFn} />
     <Board cellContent={cells} />
     <TriesLeft triesLeft={4} totalTries={6} />
