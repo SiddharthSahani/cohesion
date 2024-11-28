@@ -10,7 +10,7 @@
     {/if}
 {/snippet}
 
-<div class="m-auto flex w-min gap-5 rounded-md pt-9">
+<div class="m-auto flex w-min gap-5 rounded-md py-9">
     {#each Array(totalTries) as _, i}
         {@render TurnDiv({ left: i < triesLeft })}
     {/each}
