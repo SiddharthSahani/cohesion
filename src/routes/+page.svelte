@@ -3,7 +3,7 @@
     import TriesLeft from '../components/TriesLeft.svelte';
 </script>
 
-<div class="h-full w-full bg-background">
+<div class="">
     <SubmitButton />
     <TriesLeft triesLeft={4} totalTries={6} />
 </div>
