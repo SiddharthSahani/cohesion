@@ -1,25 +1,25 @@
 <script>
     import { animate } from 'motion';
     import { ChevronsRight } from 'lucide-svelte';
+
+    let { submitFn } = $props();
 </script>
 
 <button
-    on:click={async () => {
-        console.log('clicked');
-    }}
-    class="relative flex h-auto gap-1 overflow-hidden rounded border border-white/25 bg-black/75 p-1 pr-4 font-bold text-white"
+    onclick={submitFn}
+    class="relative overflow-hidden rounded-lg border border-white/25 bg-tertiary p-1 pr-4 font-bold text-white"
 >
     <div
         class="chevdiv absolute left-0 top-0 flex h-full transform items-center justify-center rounded-sm bg-accent text-black"
     >
-        <ChevronsRight strokeWidth="3" />
+        <ChevronsRight size="32" strokeWidth="3" />
     </div>
-    <span class="text relative z-10 pl-8">Submit</span>
+    <div class="text z-10 pl-14">Submit</div>
 </button>
 
 <style>
     .chevdiv {
-        width: 2rem; /* Adjust this width to fit the chevron */
+        width: 3rem; /* Adjust this width to fit the chevron */
         transition: width 0.3s ease-in-out;
     }
     button:hover .chevdiv {

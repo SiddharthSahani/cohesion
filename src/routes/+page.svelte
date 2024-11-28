@@ -1,6 +1,6 @@
 <script>
     import Board from '../components/Board.svelte';
-    import SubmitButton from '../components/SubmitButton.svelte';
+    import BoardHeader from '../components/BoardHeader.svelte';
     import TriesLeft from '../components/TriesLeft.svelte';
 
     const cells = [
@@ -21,10 +21,17 @@
         'Wood',
         'Pigs'
     ];
+
+    const shuffleBoardFn = () => {
+        alert('shuffleBoardFn');
+    };
+    const submitFn = () => {
+        alert('submitFn');
+    };
 </script>
 
 <div class="">
-    <SubmitButton />
+    <BoardHeader {shuffleBoardFn} {submitFn} />
     <Board cellContent={cells} />
     <TriesLeft triesLeft={4} totalTries={6} />
 </div>
