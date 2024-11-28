@@ -4,13 +4,13 @@
 
 {#snippet TurnDiv({ left })}
     {#if left}
-        <div class="oscillating-border h-12 w-12 rounded-full bg-amber-400"></div>
+        <div class="oscillating-border h-12 w-12 rounded-full bg-accent"></div>
     {:else}
-        <div class="oscillating-border h-12 w-12 rounded-full bg-stone-800"></div>
+        <div class="oscillating-border h-12 w-12 rounded-full bg-secondary"></div>
     {/if}
 {/snippet}
 
-<div class="flex w-min gap-5 rounded-md bg-gray-800/20 px-3 py-1">
+<div class="flex w-min gap-5 rounded-md bg-primary/10 px-3 py-1">
     {#each Array(totalTries) as _, i}
         {@render TurnDiv({ left: i < triesLeft })}
     {/each}
