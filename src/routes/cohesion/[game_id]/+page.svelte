@@ -1,7 +1,7 @@
 <script>
-    import Board from '../../components/Board.svelte';
-    import BoardHeader from '../../components/BoardHeader.svelte';
-    import TriesLeft from '../../components/TriesLeft.svelte';
+    import Board from '../../../components/Board.svelte';
+    import BoardHeader from '../../../components/BoardHeader.svelte';
+    import TriesLeft from '../../../components/TriesLeft.svelte';
 
     let { data } = $props();
 
