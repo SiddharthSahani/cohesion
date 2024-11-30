@@ -13,6 +13,7 @@ const redis = new Redis({
 });
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
+    trustHost: true,
     adapter: UpstashRedisAdapter(redis),
     providers: [Google]
 });
