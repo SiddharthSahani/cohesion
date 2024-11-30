@@ -2,7 +2,7 @@ export const load = async ({ params }) => {
     // TODO: fetch from redis here
     // this runs on server
 
-    console.log('fetching', params.game_id);
+    console.log('fetching id', params.game_id);
     return {
         board_title: params.game_id + ' - Board',
         cells: [
