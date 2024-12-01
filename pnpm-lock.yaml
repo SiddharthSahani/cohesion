@@ -23,6 +23,9 @@ importers:
       motion:
         specifier: ^11.11.17
         version: 11.11.17
+      nanoid:
+        specifier: ^5.0.9
+        version: 5.0.9
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
@@ -748,6 +751,11 @@ packages:
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@5.0.9:
+    resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
+    engines: {node: ^18 || >=20}
     hasBin: true
 
   node-releases@2.0.18:
@@ -1643,6 +1651,8 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.7: {}
+
+  nanoid@5.0.9: {}
 
   node-releases@2.0.18: {}
 

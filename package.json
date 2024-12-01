@@ -26,6 +26,7 @@
         "@auth/upstash-redis-adapter": "^2.7.4",
         "@upstash/redis": "^1.34.3",
         "lucide-svelte": "^0.462.0",
-        "motion": "^11.11.17"
+        "motion": "^11.11.17",
+        "nanoid": "^5.0.9"
     }
 }
