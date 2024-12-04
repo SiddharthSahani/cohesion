@@ -8,7 +8,7 @@ export const load = async ({ params }) => {
         return {
             game_id: params.game_id,
             board_title: game.title + ' - Board',
-            cells: game.clusters.flatMap((cluster) => cluster.words),
+            clusters: game.clusters,
             isValid: true
         };
     } catch (error) {

@@ -1,9 +1,10 @@
 <script>
-    let { text, isSelected, isUsed } = $props();
+    let { text, isSelected, isUsed, selectCellFn } = $props();
 </script>
 
-<div
-    class="text-text flex h-28 w-full items-center justify-center rounded-lg bg-secondary px-4 text-xl font-bold sm:text-2xl"
+<button
+    onclick={selectCellFn}
+    class={`text-text flex h-28 w-full items-center justify-center rounded-lg border-[1px] px-4 text-xl font-bold sm:text-2xl ${isSelected ? 'border-accent bg-gradient-to-t from-secondary to-tertiary' : 'border-secondary'} ${isUsed ? 'bg-accent text-black' : 'bg-secondary '}`}
 >
     {text}
-</div>
+</button>
