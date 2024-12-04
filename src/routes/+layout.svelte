@@ -18,6 +18,6 @@
     </div>
 
     <div class="w-full bg-yellow-500 text-center text-lg font-medium text-black underline">
-        Want one of your own?
+        <a href="/create">Want one of your own?</a>
     </div>
 </div>

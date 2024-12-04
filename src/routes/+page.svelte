@@ -25,10 +25,10 @@
     <div class="w-9/12 pl-14">
         <div class="flex h-36 flex-col gap-8">
             <div class="flex gap-5 rounded-xl bg-white/5 p-4">
-                <button class="flex gap-2 rounded-lg bg-accent p-2" onclick={() => alert('create')}>
+                <a class="flex gap-2 rounded-lg bg-accent p-2 px-4" href="/create">
                     <Plus size="32" strokeWidth="2" />
                     <span class="text-2xl font-bold">Create New</span>
-                </button>
+                </a>
                 <div class="flex gap-3 rounded-lg bg-secondary p-2">
                     <Search size="32" strokeWidth="2" class="text-white/80" />
                     <input
