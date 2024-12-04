@@ -6,7 +6,7 @@
 
 <a
     class="flex w-full justify-between rounded-xl bg-secondary p-6"
-    href="/cohesion/{id}"
+    href="/games/{id}"
     data-sveltekit-preload-data="tap"
 >
     <div class="flex gap-3">
