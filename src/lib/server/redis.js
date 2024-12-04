@@ -32,12 +32,11 @@ export async function createGame(userId, gameData) {
     const game = {
         id: gameId,
         userId,
-        title: gameData.title || 'Untitled Game',
+        title: gameData.title,
         createdAt: new Date().toISOString(),
         playCount: 0,
         winCount: 0,
-        clusters: gameData.clusters || [],
-        status: 'active'
+        clusters: gameData.clusters
     };
 
     // Store game in Redis

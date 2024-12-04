@@ -35,7 +35,7 @@
                     />
                 </div>
 
-                {#each Array(4).fill(null) as _, clusterIndex}
+                {#each Array(4) as _, clusterIndex}
                     <div class="mb-4 rounded border border-input p-4">
                         <h2 class="mb-2 text-lg font-semibold">Cluster {clusterIndex + 1}</h2>
 
@@ -50,7 +50,7 @@
                             </Tabs.List>
                             <Tabs.Content value="words">
                                 <div class="grid grid-cols-4 gap-2">
-                                    {#each Array(4).fill(null) as _, wordIndex}
+                                    {#each Array(4) as _, wordIndex}
                                         <Input
                                             type="text"
                                             name={`cluster-${clusterIndex}-word-${wordIndex}`}
@@ -68,7 +68,7 @@
                                         placeholder="Context for the cluster"
                                         id={`cluster-${clusterIndex}-context`}
                                         class="w-full rounded border p-2"
-                                    ></Textarea>
+                                    />
                                 </div>
                             </Tabs.Content>
                         </Tabs.Root>
@@ -76,14 +76,10 @@
                 {/each}
             </Card.Content>
             <Card.Footer>
-                <SubmitButton type="submit" class="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
-                    >Create Game</SubmitButton
-                >
+                <SubmitButton class="mt-4 rounded bg-blue-500 px-4 py-2 text-white">
+                    Create Game
+                </SubmitButton>
             </Card.Footer>
         </Card.Root>
     </form>
 </div>
-
-<style>
-    /* Add any additional styles you need here */
-</style>
