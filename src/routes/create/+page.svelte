@@ -36,7 +36,7 @@
                 </div>
 
                 {#each Array(4).fill(null) as _, clusterIndex}
-                    <div class="border-input mb-4 rounded border p-4">
+                    <div class="mb-4 rounded border border-input p-4">
                         <h2 class="mb-2 text-lg font-semibold">Cluster {clusterIndex + 1}</h2>
 
                         <Tabs.Root value="words" class="w-full">
