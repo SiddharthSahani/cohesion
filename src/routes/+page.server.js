@@ -1,15 +1,14 @@
-export const load = async ({ params }) => {
-    // TODO: fetch from redis here
-    // this runs on server
+import { queryGames } from '$lib/server/redis';
 
+export const load = async ({ params }) => {
     console.log('fetching trending boards');
-    return {
-        boards: [
-            { id: 'hello', name: 'Food', timesPlayed: 268 },
-            { id: 'testing', name: 'Country', timesPlayed: 210 },
-            { id: 'another', name: 'Game', timesPlayed: 169 },
-            { id: 'more', name: 'Tech', timesPlayed: 166 },
-            { id: 'happy', name: 'Music', timesPlayed: 152 }
-        ]
-    };
+
+    const boards = (await queryGames({ sortBy: 'playCount', order: 'desc', limit: 10 })).map(
+        (game) => ({
+            id: game.id,
+            name: game.title,
+            timesPlayed: game.playCount
+        })
+    );
+    return { boards };
 };
