@@ -6,14 +6,16 @@ export const load = async ({ params }) => {
         const game = await getGame(params.game_id);
 
         return {
+            game_id: params.game_id,
             board_title: game.title + ' - Board',
-            cells: game.clusters.flatMap((cluster) => cluster.words)
+            cells: game.clusters.flatMap((cluster) => cluster.words),
+            isValid: true
         };
     } catch (error) {
         console.error('Error fetching game:', error);
         return {
-            board_title: 'Game not found',
-            cells: []
+            game_id: params.game_id,
+            isValid: false
         };
     }
 };
