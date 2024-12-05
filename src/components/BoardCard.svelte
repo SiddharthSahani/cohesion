@@ -5,7 +5,7 @@
 </script>
 
 <a
-    class="flex w-full justify-between rounded-xl bg-secondary p-6"
+    class="flex w-full items-center justify-between rounded-md bg-secondary p-4"
     href="/games/{id}"
     data-sveltekit-preload-data="tap"
 >
@@ -13,5 +13,5 @@
         <CohesionIcon />
         <div class="text-xl font-semibold text-white">{name}</div>
     </div>
-    <div class="text-xl font-semibold text-white/50">{timesPlayed} matches played</div>
+    <div class="text-sm font-semibold text-white/50">{timesPlayed} matches played</div>
 </a>

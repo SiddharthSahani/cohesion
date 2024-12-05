@@ -73,4 +73,23 @@
     body {
         @apply bg-background text-foreground;
     }
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #282828;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #343127;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #3b372b;
+    }
 }
