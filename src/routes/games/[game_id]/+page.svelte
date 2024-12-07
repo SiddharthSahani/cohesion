@@ -40,9 +40,17 @@
                 isUsed: false
             }))
     );
+    let wrongCells = $state([]);
     let triesLeft = $state(6);
     let clustersUsed = [];
-    let wrongCells = $state(new Set());
+
+    $effect(() => {
+        if (wrongCells.length !== 0) {
+            setTimeout(() => {
+                wrongCells = [];
+            }, 2000);
+        }
+    });
 
     const shuffleBoardFn = () => {
         cells = cells
@@ -52,10 +60,6 @@
     };
 
     const submitFn = () => {
-        console.log('submitting', wrongCells);
-        // // Reset wrong cells before each submission
-        // wrongCells.clear();
-
         if (triesLeft === 0) {
             alert('You have run out of tries');
             return;
@@ -86,21 +90,13 @@
 
         // If no matching cluster is found
         if (clusterIndex === -1) {
-            // Mark wrong cells
-            cells.forEach((cell, index) => {
-                if (cell.isSelected) {
-                    wrongCells.add(index);
-                }
-            });
-
-            alert('No such cluster found :(');
             triesLeft--;
+            wrongCells = cells.filter((cell) => cell.isSelected);
         } else {
             // Correct cluster found
             for (let i = 0; i < cells.length; i++) {
                 cells[i].isUsed |= cells[i].isSelected;
             }
-            alert('Correct Clusters! ' + data.clusters[clusterIndex].context);
         }
         // win condition
         if (cells.every((cell) => cell.isUsed)) {

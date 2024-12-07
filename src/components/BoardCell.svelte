@@ -3,9 +3,6 @@
     import { onMount } from 'svelte';
 
     let { text, isSelected, isUsed, isWrong, selectCellFn } = $props();
-    $effect(() => {
-        console.log('cell', text, isWrong);
-    });
     let buttonElement;
 
     const animateButtonPress = (node) => {
@@ -52,7 +49,7 @@
            shadow-sm transition-all duration-200
            ease-out hover:shadow-md
            {isWrong
-        ? 'border-red-500 bg-red-100/20 text-red-500'
+        ? 'wrong-cell border-red-500 bg-red-100/20 text-red-500'
         : isSelected
           ? 'active-cell border-accent/50 bg-gradient-to-b from-secondary/90 to-secondary ring-1 ring-accent/30'
           : 'border-secondary/50 hover:border-accent/30'} 
@@ -79,7 +76,29 @@
 <style>
     .active-cell {
         box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-        animation: subtle-pulse 2s infinite;
+        animation: subtle-pulse 2s ease-in-out;
+    }
+
+    .wrong-cell {
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+        animation: wrong-pulse 2s infinite;
+    }
+
+    @keyframes wrong-pulse {
+        0% {
+            background-color: rgba(255, 0, 0, 0.3);
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.02);
+        }
+        70% {
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        100% {
+            background-color: rgba(255, 0, 0, 0.05);
+            transform: scale(1);
+        }
     }
 
     @keyframes subtle-pulse {
