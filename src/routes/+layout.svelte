@@ -1,7 +1,7 @@
 <script>
     import { Sun } from 'lucide-svelte';
     import '../app.css';
-    import ThemeSwitch from '../components/ThemeSwitch.svelte';
+    import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
     import CohesionLogo from '$lib/components/CohesionLogo.svelte';
     import { page } from '$app/stores';
     let { children } = $props();

@@ -16,8 +16,8 @@
         </div>
     {/if}
 
-    <form method="POST" class="space-y-4 text-white">
-        <Card.Root class="border-input bg-white/5 text-white">
+    <form method="POST" class="space-y-4 text-foreground">
+        <Card.Root class="border-input bg-white/5 text-foreground">
             <Card.Header>
                 <Card.Title>Game Details</Card.Title>
                 <Card.Description>Fill in the details for your new game</Card.Description>
@@ -76,7 +76,7 @@
                 {/each}
             </Card.Content>
             <Card.Footer>
-                <SubmitButton class="mt-4 rounded bg-blue-500 px-4 py-2 text-white">
+                <SubmitButton class="mt-4 rounded bg-blue-500 px-4 py-2 text-foreground">
                     Create Game
                 </SubmitButton>
             </Card.Footer>

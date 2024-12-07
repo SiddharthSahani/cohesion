@@ -117,7 +117,7 @@
 
 <div class="h-full">
     {#if data.isValid}
-        <h1 class="px-4 py-6 text-start text-4xl font-bold capitalize text-white">
+        <h1 class="px-4 py-6 text-start text-4xl font-bold capitalize text-foreground">
             {data.board_title}
         </h1>
         <BoardHeader
@@ -129,8 +129,8 @@
         <Board {cells} {selectCellFn} {wrongCells} />
         <TriesLeft {triesLeft} totalTries={6} />
     {:else}
-        <h1 class="py-12 text-center text-4xl font-bold text-white">Game not found</h1>
-        <p class="py-12 text-center text-xl text-white">
+        <h1 class="py-12 text-center text-4xl font-bold text-foreground">Game not found</h1>
+        <p class="py-12 text-center text-xl text-foreground">
             No game exists with the ID <code>{data.game_id}</code>
         </p>
     {/if}

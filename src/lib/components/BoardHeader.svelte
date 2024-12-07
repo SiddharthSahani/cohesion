@@ -6,7 +6,7 @@
 </script>
 
 <div
-    class="text-md flex w-full select-none justify-between px-4 pb-2 font-bold text-white sm:text-lg"
+    class="text-md flex w-full select-none justify-between px-4 pb-2 font-bold text-foreground sm:text-lg"
 >
     <div
         class="hidden w-auto items-center justify-center gap-2 rounded-lg border-2 border-tertiary bg-secondary px-4 opacity-75 sm:flex"

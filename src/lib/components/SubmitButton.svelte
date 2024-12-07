@@ -8,8 +8,8 @@
 <button
     onclick={enable ? submitFn : () => {}}
     class="relative overflow-hidden rounded-lg border-2 border-tertiary bg-secondary pr-4 font-bold {enable
-        ? 'text-white'
-        : 'text-white/70'}"
+        ? 'text-foreground'
+        : 'text-foreground/70'}"
 >
     <div
         class="{enable &&

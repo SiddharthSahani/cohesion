@@ -54,7 +54,7 @@
           ? 'active-cell border-accent/50 bg-gradient-to-b from-secondary/90 to-secondary ring-1 ring-accent/30'
           : 'border-secondary/50 hover:border-accent/30'} 
            {isUsed
-        ? 'cursor-not-allowed bg-background/50 text-white/25 opacity-50'
+        ? 'cursor-not-allowed bg-background/50 text-foreground/25 opacity-50'
         : 'active:scale-98 bg-secondary/80 hover:bg-secondary/90'}"
 >
     {#if isSelected && !isWrong}

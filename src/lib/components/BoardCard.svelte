@@ -11,7 +11,7 @@
 >
     <div class="flex gap-3">
         <CohesionIcon />
-        <div class="text-xl font-semibold text-white">{name}</div>
+        <div class="text-xl font-semibold text-foreground">{name}</div>
     </div>
-    <div class="text-sm font-semibold text-white/50">{timesPlayed} matches played</div>
+    <div class="text-sm font-semibold text-foreground/50">{timesPlayed} matches played</div>
 </a>
