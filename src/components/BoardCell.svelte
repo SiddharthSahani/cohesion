@@ -53,7 +53,7 @@
            ease-out hover:shadow-md
            {isWrong
         ? 'border-red-500 bg-red-100/20 text-red-500'
-        : isWrong
+        : isSelected
           ? 'active-cell border-accent/50 bg-gradient-to-b from-secondary/90 to-secondary ring-1 ring-accent/30'
           : 'border-secondary/50 hover:border-accent/30'} 
            {isUsed

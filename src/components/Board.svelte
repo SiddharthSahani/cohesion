@@ -7,7 +7,6 @@
         console.log('Board wrongCells', wrongCells);
     });
 
-    // Create a derived value that will update whenever wrongCells changes
     const isWrongCell = $derived((index) => {
         return wrongCells.has(index);
     });
@@ -28,10 +27,9 @@
                 style="animation-delay: {i * 40}ms"
             >
                 <BoardCell
-                    text={cell.word}
                     isSelected={cell.isSelected}
+                    text={cell.word}
                     isUsed={cell.isUsed}
-                    isWrong={isWrongCell(i)}
                     selectCellFn={() => selectCellFn(i)}
                 />
             </div>

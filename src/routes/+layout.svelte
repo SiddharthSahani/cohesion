@@ -6,12 +6,13 @@
 </script>
 
 <div class="flex h-full w-full flex-col justify-between overflow-hidden bg-background">
-    <a class="flex items-center justify-between px-6 py-4" href="/">
-        <CohesionLogo />
+    <div class="flex items-center justify-between px-6 py-4">
+        <a href="/"> <CohesionLogo /></a>
+
         <button onclick={() => alert('flashbang')} class="rounded-lg bg-tertiary p-2 text-primary">
             <Sun size={24} strokeWidth={2} />
         </button>
-    </a>
+    </div>
 
     <div class="flex flex-grow items-center justify-center overflow-auto">
         {@render children()}
