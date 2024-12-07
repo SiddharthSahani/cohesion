@@ -26,7 +26,6 @@
     // when notried left is 0, game is over
     $effect(() => {
         if (triesLeft === 0) {
-            alert('Game Over');
             handleGamePlay();
         }
     });
@@ -60,16 +59,6 @@
     };
 
     const submitFn = () => {
-        if (triesLeft === 0) {
-            alert('You have run out of tries');
-            return;
-        }
-
-        if (cells.reduce((acc, cell) => acc + cell.isSelected, 0) !== 4) {
-            alert('You must select 4 cells to submit');
-            return;
-        }
-
         const selectedWords = cells.filter((cell) => cell.isSelected).map((cell) => cell.word);
         let clusterIndex = -1;
 
@@ -100,7 +89,6 @@
         }
         // win condition
         if (cells.every((cell) => cell.isUsed)) {
-            alert('You have won!');
             handleGameWin();
             handleGamePlay();
         }
@@ -118,7 +106,6 @@
 
         if (!cells[index].isSelected) {
             if (cells.reduce((acc, cell) => acc + cell.isSelected, 0) >= 4) {
-                alert('You can only select 4 cells at a time');
                 return;
             }
             cells[index].isSelected = true;
@@ -133,7 +120,12 @@
         <h1 class="px-4 py-6 text-start text-4xl font-bold capitalize text-white">
             {data.board_title}
         </h1>
-        <BoardHeader {shuffleBoardFn} {submitFn} />
+        <BoardHeader
+            {shuffleBoardFn}
+            {submitFn}
+            submitEnable={triesLeft > 0 &&
+                cells.reduce((acc, cell) => acc + cell.isSelected, 0) === 4}
+        />
         <Board {cells} {selectCellFn} {wrongCells} />
         <TriesLeft {triesLeft} totalTries={6} />
     {:else}
