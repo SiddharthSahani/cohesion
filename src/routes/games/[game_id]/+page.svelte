@@ -79,7 +79,7 @@
 
         // Deselect all cells after submission
         for (let i = 0; i < cells.length; i++) {
-            // cells[i].isSelected = false;
+            cells[i].isSelected = false;
         }
     };
 

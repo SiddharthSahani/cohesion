@@ -39,7 +39,7 @@
             {/if}
         </div>
     {:else}
-        <div class="lost-life h-6 w-6 rounded-full bg-secondary/50 sm:h-8 sm:w-8"></div>
+        <div class="lost-life h-6 w-6 rounded-full bg-accent/50 sm:h-8 sm:w-8"></div>
     {/if}
 {/snippet}
 
