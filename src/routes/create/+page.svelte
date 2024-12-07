@@ -3,7 +3,7 @@
     import * as Tabs from '$lib/components/ui/tabs/index.js';
     import Input from '$lib/components/ui/input/input.svelte';
     import { Textarea } from '$lib/components/ui/textarea/index.js';
-    import SubmitButton from '../../components/SubmitButton.svelte';
+    import SubmitButton from '$lib/components/SubmitButton.svelte';
     import * as Card from '$lib/components/ui/card/index.js';
 </script>
 
