@@ -18,7 +18,7 @@
     <div class="flex h-full w-full flex-col gap-4 p-4">
         <div class="h-24 rounded-md bg-tertiary/50">
             <div
-                class="text-md flex h-full w-full items-center justify-center truncate font-semibold text-white"
+                class="text-md flex h-full w-full items-center justify-center truncate font-semibold text-foreground"
             >
                 Self Promo Here
             </div>
@@ -34,7 +34,7 @@
                         <span class="truncate text-lg font-bold text-background">Create New</span>
                     </a>
                     <div class="flex items-center gap-2 truncate rounded-lg bg-secondary p-2">
-                        <Search size="24" strokeWidth="3" class="text-white/80" />
+                        <Search size="24" strokeWidth="3" class="text-foreground/80" />
                         <input
                             type="text"
                             bind:value={searchInput}
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-4">
-                    <div class="text-2xl font-bold text-white">Trending Cohesions</div>
+                    <div class="text-2xl font-bold text-foreground">Trending Cohesions</div>
                     <div class="flex flex-col gap-3">
                         {#each visibleBoards as board}
                             <BoardCard {...board} />
