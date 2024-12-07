@@ -1,8 +1,8 @@
 <script>
     import { page } from '$app/stores';
-    import Board from '../../../components/Board.svelte';
-    import BoardHeader from '../../../components/BoardHeader.svelte';
-    import TriesLeft from '../../../components/TriesLeft.svelte';
+    import Board from '$lib/components/Board.svelte';
+    import BoardHeader from '$lib/components/BoardHeader.svelte';
+    import TriesLeft from '$lib/components/TriesLeft.svelte';
     import { incrementPlay, incrementWin } from '$lib/gameApi';
 
     let { data } = $props();

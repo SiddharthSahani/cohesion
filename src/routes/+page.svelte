@@ -1,6 +1,6 @@
 <script>
     import { Plus, Search } from 'lucide-svelte';
-    import BoardCard from '../components/BoardCard.svelte';
+    import BoardCard from '$lib/components/BoardCard.svelte';
 
     let { data } = $props();
     let searchInput = $state('');

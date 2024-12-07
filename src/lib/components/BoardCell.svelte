@@ -90,13 +90,11 @@
             transform: scale(1);
         }
         50% {
+            background-color: rgba(255, 0, 0, 0.1);
             transform: scale(1.02);
         }
-        70% {
-            background-color: rgba(255, 0, 0, 0.1);
-        }
         100% {
-            background-color: rgba(255, 0, 0, 0.05);
+            background-color: rgba(255, 0, 0, 0);
             transform: scale(1);
         }
     }
