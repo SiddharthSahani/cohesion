@@ -1,8 +1,8 @@
 <script>
     import { page } from '$app/stores';
-    import Board from '../../../components/Board.svelte';
-    import BoardHeader from '../../../components/BoardHeader.svelte';
-    import TriesLeft from '../../../components/TriesLeft.svelte';
+    import Board from '$lib/components/Board.svelte';
+    import BoardHeader from '$lib/components/BoardHeader.svelte';
+    import TriesLeft from '$lib/components/TriesLeft.svelte';
     import { incrementPlay, incrementWin } from '$lib/gameApi';
 
     let { data } = $props();
@@ -26,7 +26,6 @@
     // when notried left is 0, game is over
     $effect(() => {
         if (triesLeft === 0) {
-            alert('Game Over');
             handleGamePlay();
         }
     });
@@ -40,9 +39,17 @@
                 isUsed: false
             }))
     );
+    let wrongCells = $state([]);
     let triesLeft = $state(6);
     let clustersUsed = [];
-    let wrongCells = $state(new Set());
+
+    $effect(() => {
+        if (wrongCells.length !== 0) {
+            setTimeout(() => {
+                wrongCells = [];
+            }, 2000);
+        }
+    });
 
     const shuffleBoardFn = () => {
         cells = cells
@@ -52,20 +59,6 @@
     };
 
     const submitFn = () => {
-        console.log('submitting', wrongCells);
-        // // Reset wrong cells before each submission
-        // wrongCells.clear();
-
-        if (triesLeft === 0) {
-            alert('You have run out of tries');
-            return;
-        }
-
-        if (cells.reduce((acc, cell) => acc + cell.isSelected, 0) !== 4) {
-            alert('You must select 4 cells to submit');
-            return;
-        }
-
         const selectedWords = cells.filter((cell) => cell.isSelected).map((cell) => cell.word);
         let clusterIndex = -1;
 
@@ -86,25 +79,16 @@
 
         // If no matching cluster is found
         if (clusterIndex === -1) {
-            // Mark wrong cells
-            cells.forEach((cell, index) => {
-                if (cell.isSelected) {
-                    wrongCells.add(index);
-                }
-            });
-
-            alert('No such cluster found :(');
             triesLeft--;
+            wrongCells = cells.filter((cell) => cell.isSelected);
         } else {
             // Correct cluster found
             for (let i = 0; i < cells.length; i++) {
                 cells[i].isUsed |= cells[i].isSelected;
             }
-            alert('Correct Clusters! ' + data.clusters[clusterIndex].context);
         }
         // win condition
         if (cells.every((cell) => cell.isUsed)) {
-            alert('You have won!');
             handleGameWin();
             handleGamePlay();
         }
@@ -122,7 +106,6 @@
 
         if (!cells[index].isSelected) {
             if (cells.reduce((acc, cell) => acc + cell.isSelected, 0) >= 4) {
-                alert('You can only select 4 cells at a time');
                 return;
             }
             cells[index].isSelected = true;
@@ -137,7 +120,12 @@
         <h1 class="px-4 py-6 text-start text-4xl font-bold capitalize text-white">
             {data.board_title}
         </h1>
-        <BoardHeader {shuffleBoardFn} {submitFn} />
+        <BoardHeader
+            {shuffleBoardFn}
+            {submitFn}
+            submitEnable={triesLeft > 0 &&
+                cells.reduce((acc, cell) => acc + cell.isSelected, 0) === 4}
+        />
         <Board {cells} {selectCellFn} {wrongCells} />
         <TriesLeft {triesLeft} totalTries={6} />
     {:else}

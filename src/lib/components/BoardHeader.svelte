@@ -2,7 +2,7 @@
     import { Info, Shuffle } from 'lucide-svelte';
     import SubmitButton from './SubmitButton.svelte';
 
-    let { shuffleBoardFn, submitFn } = $props();
+    let { shuffleBoardFn, submitEnable, submitFn } = $props();
 </script>
 
 <div
@@ -24,6 +24,6 @@
         >
             <Shuffle size="24" strokeWidth="3" />
         </button>
-        <SubmitButton {submitFn} />
+        <SubmitButton {submitFn} enable={submitEnable} />
     </div>
 </div>
