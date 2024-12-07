@@ -84,7 +84,7 @@
 
 <div class="h-full">
     {#if data.isValid}
-        <h1 class="py-12 text-center text-4xl font-bold text-white">{data.board_title}</h1>
+        <h1 class="py-6 text-start text-4xl font-bold capitalize text-white">{data.board_title}</h1>
         <BoardHeader {shuffleBoardFn} {submitFn} />
         <Board {cells} {selectCellFn} />
         <TriesLeft {triesLeft} totalTries={6} />

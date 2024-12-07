@@ -7,14 +7,14 @@
 
 <button
     onclick={submitFn}
-    class="relative overflow-hidden rounded-lg border border-white/25 bg-tertiary p-1 pr-4 font-bold text-white"
+    class="relative overflow-hidden rounded-lg border-2 border-tertiary bg-secondary pr-4 font-bold text-white"
 >
     <div
         class="chevdiv absolute left-0 top-0 flex h-full transform items-center justify-center rounded-sm bg-accent text-black"
     >
         <ChevronsRight size="32" strokeWidth="3" />
     </div>
-    <div class="text z-10 pl-14">Submit</div>
+    <div class="text z-10 pl-14">SUBMIT</div>
 </button>
 
 <style>
