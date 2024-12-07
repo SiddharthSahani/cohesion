@@ -3,8 +3,34 @@
     import Board from '../../../components/Board.svelte';
     import BoardHeader from '../../../components/BoardHeader.svelte';
     import TriesLeft from '../../../components/TriesLeft.svelte';
+    import { incrementPlay, incrementWin } from '$lib/gameApi';
 
     let { data } = $props();
+
+    async function handleGamePlay() {
+        try {
+            await incrementPlay(data.game_id);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    async function handleGameWin() {
+        try {
+            await incrementWin(data.game_id);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // when notried left is 0, game is over
+    $effect(() => {
+        if (triesLeft === 0) {
+            alert('Game Over');
+            handleGamePlay();
+        }
+    });
+
     let cells = $state(
         data.clusters
             .flatMap((cluster) => cluster.words)
@@ -76,6 +102,12 @@
             }
             alert('Correct Clusters! ' + data.clusters[clusterIndex].context);
         }
+        // win condition
+        if (cells.every((cell) => cell.isUsed)) {
+            alert('You have won!');
+            handleGameWin();
+            handleGamePlay();
+        }
 
         // Deselect all cells after submission
         for (let i = 0; i < cells.length; i++) {
@@ -102,7 +134,9 @@
 
 <div class="h-full">
     {#if data.isValid}
-        <h1 class="py-6 text-start text-4xl font-bold capitalize text-white">{data.board_title}</h1>
+        <h1 class="px-4 py-6 text-start text-4xl font-bold capitalize text-white">
+            {data.board_title}
+        </h1>
         <BoardHeader {shuffleBoardFn} {submitFn} />
         <Board {cells} {selectCellFn} {wrongCells} />
         <TriesLeft {triesLeft} totalTries={6} />

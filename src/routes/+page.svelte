@@ -15,8 +15,8 @@
 </script>
 
 <section class="flex h-full w-full max-w-7xl items-center">
-    <div class="flex h-full w-full flex-col gap-4 p-4 sm:flex-row">
-        <div class="h-12 rounded-md bg-tertiary/50 sm:h-auto sm:w-3/12 sm:max-w-[175px]">
+    <div class="flex h-full w-full flex-col gap-4 p-4">
+        <div class="h-24 rounded-md bg-tertiary/50">
             <div
                 class="text-md flex h-full w-full items-center justify-center truncate font-semibold text-white"
             >

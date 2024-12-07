@@ -1,5 +1,5 @@
 import { getGame } from '$lib/server/redis';
-
+import { incrementPlayCount, incrementWinCount } from '$lib/server/redis';
 export const load = async ({ params }) => {
     try {
         // Fetch game details from Redis

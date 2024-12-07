@@ -2,6 +2,7 @@
     import { Sun } from 'lucide-svelte';
     import '../app.css';
     import CohesionLogo from '../components/CohesionLogo.svelte';
+    import { page } from '$app/stores';
     let { children } = $props();
 </script>
 
@@ -18,7 +19,9 @@
         {@render children()}
     </div>
 
-    <div class="w-full bg-yellow-500 text-center text-lg font-medium text-black underline">
-        <a href="/create">Want one of your own?</a>
-    </div>
+    {#if $page.url.pathname.startsWith('/games')}
+        <div class="w-full bg-yellow-500 text-center text-lg font-medium text-black underline">
+            <a href="/create">Want one of your own?</a>
+        </div>
+    {/if}
 </div>
