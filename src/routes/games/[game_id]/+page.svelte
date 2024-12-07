@@ -5,7 +5,7 @@
     import TriesLeft from '../../../components/TriesLeft.svelte';
 
     let { data } = $props();
-    const cells = $state(
+    let cells = $state(
         data.clusters
             .flatMap((cluster) => cluster.words)
             .map((word) => ({
@@ -16,14 +16,20 @@
     );
     let triesLeft = $state(6);
     let clustersUsed = [];
+    let wrongCells = $state(new Set());
 
     const shuffleBoardFn = () => {
-        let cells = cells
+        cells = cells
             .map((value) => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
     };
+
     const submitFn = () => {
+        console.log('submitting', wrongCells);
+        // // Reset wrong cells before each submission
+        // wrongCells.clear();
+
         if (triesLeft === 0) {
             alert('You have run out of tries');
             return;
@@ -36,6 +42,8 @@
 
         const selectedWords = cells.filter((cell) => cell.isSelected).map((cell) => cell.word);
         let clusterIndex = -1;
+
+        // Find a matching cluster
         for (let i = 0; i < data.clusters.length; i++) {
             if (clustersUsed.includes(i)) {
                 continue;
@@ -50,18 +58,28 @@
             }
         }
 
+        // If no matching cluster is found
         if (clusterIndex === -1) {
+            // Mark wrong cells
+            cells.forEach((cell, index) => {
+                if (cell.isSelected) {
+                    wrongCells.add(index);
+                }
+            });
+
             alert('No such cluster found :(');
             triesLeft--;
         } else {
+            // Correct cluster found
             for (let i = 0; i < cells.length; i++) {
                 cells[i].isUsed |= cells[i].isSelected;
             }
             alert('Correct Clusters! ' + data.clusters[clusterIndex].context);
         }
 
+        // Deselect all cells after submission
         for (let i = 0; i < cells.length; i++) {
-            cells[i].isSelected = false;
+            // cells[i].isSelected = false;
         }
     };
 
@@ -86,7 +104,7 @@
     {#if data.isValid}
         <h1 class="py-6 text-start text-4xl font-bold capitalize text-white">{data.board_title}</h1>
         <BoardHeader {shuffleBoardFn} {submitFn} />
-        <Board {cells} {selectCellFn} />
+        <Board {cells} {selectCellFn} {wrongCells} />
         <TriesLeft {triesLeft} totalTries={6} />
     {:else}
         <h1 class="py-12 text-center text-4xl font-bold text-white">Game not found</h1>

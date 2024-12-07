@@ -2,18 +2,21 @@
     import { animate } from 'motion';
     import { onMount } from 'svelte';
 
-    let { text, isSelected, isUsed, selectCellFn } = $props();
+    let { text, isSelected, isUsed, isWrong, selectCellFn } = $props();
+    $effect(() => {
+        console.log('cell', text, isWrong);
+    });
     let buttonElement;
 
     const animateButtonPress = (node) => {
         animate(
             node,
             {
-                scale: [1, 1.05, 0.98, 1], // Reduced scale values for subtlety
-                rotate: [0, 2, -2, 0] // Reduced rotation angles
+                scale: [1, 1.05, 0.98, 1],
+                rotate: [0, 2, -2, 0]
             },
             {
-                duration: 0.3, // Faster animation
+                duration: 0.3,
                 easing: 'ease-out'
             }
         );
@@ -30,7 +33,7 @@
                 buttonElement,
                 {
                     opacity: [0, 1],
-                    y: [10, 0] // Reduced initial offset
+                    y: [10, 0]
                 },
                 {
                     duration: 0.3,
@@ -48,14 +51,16 @@
            rounded-lg border-2 px-4 py-4 text-xl font-bold
            shadow-sm transition-all duration-200
            ease-out hover:shadow-md
-           {isSelected
-        ? 'active-cell border-accent/50 bg-gradient-to-b from-secondary/90 to-secondary ring-1 ring-accent/30'
-        : 'border-secondary/50 hover:border-accent/30'} 
+           {isWrong
+        ? 'border-red-500 bg-red-100/20 text-red-500'
+        : isWrong
+          ? 'active-cell border-accent/50 bg-gradient-to-b from-secondary/90 to-secondary ring-1 ring-accent/30'
+          : 'border-secondary/50 hover:border-accent/30'} 
            {isUsed
         ? 'cursor-not-allowed bg-background/50 text-white/25 opacity-50'
         : 'active:scale-98 bg-secondary/80 hover:bg-secondary/90'}"
 >
-    {#if isSelected}
+    {#if isSelected && !isWrong}
         <span class="animate-soft-pulse absolute inset-0 rounded-lg bg-accent/10"></span>
         <div class="sparkle-effect">
             {#each Array(5) as _, index}
