@@ -54,7 +54,7 @@
           ? 'active-cell border-accent/50 bg-gradient-to-b from-secondary/90 to-secondary ring-1 ring-accent/30'
           : 'border-secondary/50 hover:border-accent/30'} 
            {isUsed
-        ? 'cursor-not-allowed bg-background/50 text-foreground/25 opacity-50'
+        ? 'cursor-not-allowed border-0 bg-accent text-background opacity-50'
         : 'active:scale-98 bg-secondary/80 hover:bg-secondary/90'}"
 >
     {#if isSelected && !isWrong}
@@ -81,7 +81,9 @@
 
     .wrong-cell {
         box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-        animation: wrong-pulse 2s infinite;
+        animation: wrong-pulse 2.5s infinite;
+        /* ease out */
+        transition: background-color 0.3s ease-out;
     }
 
     @keyframes wrong-pulse {
@@ -91,7 +93,7 @@
         }
         50% {
             background-color: rgba(255, 0, 0, 0.1);
-            transform: scale(1.02);
+            transform: scale(1.01);
         }
         100% {
             background-color: rgba(255, 0, 0, 0);
