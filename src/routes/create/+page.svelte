@@ -17,7 +17,7 @@
     {/if}
 
     <form method="POST" class="space-y-4 text-foreground">
-        <Card.Root class="border-input bg-white/5 text-foreground">
+        <Card.Root class="border-input/50 bg-white/5 text-foreground">
             <Card.Header>
                 <Card.Title>Game Details</Card.Title>
                 <Card.Description>Fill in the details for your new game</Card.Description>
@@ -30,13 +30,13 @@
                         name="title"
                         id="title"
                         required
-                        class="w-full rounded border p-2"
+                        class="w-full rounded border border-input/35 p-2"
                         value={form?.title || ''}
                     />
                 </div>
 
                 {#each Array(4) as _, clusterIndex}
-                    <div class="mb-4 rounded border border-input p-4">
+                    <div class="mb-4 rounded border border-input/35 p-4">
                         <h2 class="mb-2 text-lg font-semibold">Cluster {clusterIndex + 1}</h2>
 
                         <Tabs.Root value="words" class="w-full">
@@ -55,30 +55,26 @@
                                             type="text"
                                             name={`cluster-${clusterIndex}-word-${wordIndex}`}
                                             placeholder={`Word ${wordIndex + 1}`}
-                                            class="rounded border p-2"
+                                            class="rounded border border-input/35 p-2"
                                             required
                                         />
                                     {/each}
                                 </div>
                             </Tabs.Content>
                             <Tabs.Content value="context">
-                                <div>
-                                    <Textarea
-                                        name={`cluster-${clusterIndex}-context`}
-                                        placeholder="Context for the cluster"
-                                        id={`cluster-${clusterIndex}-context`}
-                                        class="w-full rounded border p-2"
-                                    />
-                                </div>
+                                <Textarea
+                                    name={`cluster-${clusterIndex}-context`}
+                                    placeholder="Context for the cluster"
+                                    id={`cluster-${clusterIndex}-context`}
+                                    class="w-full rounded border border-input/35 p-2"
+                                />
                             </Tabs.Content>
                         </Tabs.Root>
                     </div>
                 {/each}
             </Card.Content>
-            <Card.Footer>
-                <SubmitButton class="mt-4 rounded bg-blue-500 px-4 py-2 text-foreground">
-                    Create Game
-                </SubmitButton>
+            <Card.Footer class="flex ">
+                <SubmitButton />
             </Card.Footer>
         </Card.Root>
     </form>

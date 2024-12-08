@@ -33,12 +33,16 @@
                         <Plus size="24" strokeWidth="3" />
                         <span class="truncate text-lg font-bold text-background">Create New</span>
                     </a>
-                    <div class="flex items-center gap-2 truncate rounded-lg bg-secondary p-2">
-                        <Search size="24" strokeWidth="3" class="text-foreground/80" />
+                    <div class="flex items-center gap-2 truncate rounded-lg bg-secondary/50 p-2">
+                        <Search
+                            size="24"
+                            strokeWidth="3"
+                            class="stroke-foreground/50 text-foreground/50"
+                        />
                         <input
                             type="text"
                             bind:value={searchInput}
-                            class="bg-secondary text-lg font-semibold text-foreground/50 outline-none"
+                            class="bg-secondary/0 text-lg font-semibold text-foreground outline-none"
                             placeholder="Search Cohesions"
                         />
                     </div>

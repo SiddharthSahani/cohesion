@@ -4,6 +4,10 @@
 
 @layer base {
     :root {
+        --scrollbar-width: 10px;
+        --scrollbar-track-color: #f0f0f0; /* Light mode track color */
+        --scrollbar-thumb-color: #c0c0c0; /* Light mode thumb color */
+        --scrollbar-thumb-hover-color: #a0a0a0; /* Light mode thumb hover color */
         --background: 0 0% 92%;
         --tertiary: 0 0% 85%;
         --foreground: 0 0% 20%;
@@ -36,6 +40,9 @@
     }
 
     .dark {
+        --scrollbar-track-color: #282828; /* Dark mode track color */
+        --scrollbar-thumb-color: #343127; /* Dark mode thumb color */
+        --scrollbar-thumb-hover-color: #3b372b; /* Dark mode thumb hover color */
         --background: 60 16% 4%;
         --tertiary: 50 12% 20%;
         --foreground: 45 13% 94%;
@@ -71,27 +78,28 @@
 @layer base {
     * {
         @apply border-border;
+        @apply scroll-smooth;
     }
     body {
         @apply bg-background text-foreground;
     }
     /* width */
     ::-webkit-scrollbar {
-        width: 10px;
+        width: var(--scrollbar-width);
     }
 
     /* Track */
     ::-webkit-scrollbar-track {
-        background: #282828;
+        background: var(--scrollbar-track-color);
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: #343127;
+        background: var(--scrollbar-thumb-color);
     }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #3b372b;
+        background: var(--scrollbar-thumb-hover-color);
     }
 }
