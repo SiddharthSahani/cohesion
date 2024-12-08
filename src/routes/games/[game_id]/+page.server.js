@@ -7,7 +7,7 @@ export const load = async ({ params }) => {
 
         return {
             game_id: params.game_id,
-            board_title: game.title + ' - Board',
+            board_title: game.title,
             clusters: game.clusters,
             isValid: true
         };

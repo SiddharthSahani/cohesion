@@ -1,8 +1,7 @@
 <script>
     import { Sun } from 'lucide-svelte';
     import '../app.css';
-    import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
-    import CohesionLogo from '$lib/components/CohesionLogo.svelte';
+    import Navbar from '$lib/components/Navbar.svelte';
     import { page } from '$app/stores';
     let { children } = $props();
 </script>
@@ -10,11 +9,7 @@
 <div
     class="flex h-full w-full flex-col justify-between overflow-hidden bg-background text-foreground"
 >
-    <div class="flex items-center justify-between px-6 py-4">
-        <a href="/"> <CohesionLogo /></a>
-        <ThemeSwitch />
-    </div>
-
+    <Navbar />
     <div class="flex flex-grow items-center justify-center overflow-auto">
         {@render children()}
     </div>
