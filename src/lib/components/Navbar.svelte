@@ -3,12 +3,7 @@
     import CohesionLogo from '$lib/components/CohesionLogo.svelte';
     import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
 
-    let imageLoaded = false;
-    let imageError = false;
-
-    function handleImageLoad() {
-        imageLoaded = true;
-    }
+    let imageError = $state(false);
 
     function handleImageError() {
         imageError = true;
@@ -30,8 +25,7 @@
                         : ''}"
                     src={$page.data.session.user.image}
                     alt="Profile picture of {$page.data.session.user.name || 'user'}"
-                    on:load={handleImageLoad}
-                    on:error={handleImageError}
+                    onerror={handleImageError}
                     loading="eager"
                     decoding="async"
                 />

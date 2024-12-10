@@ -2,7 +2,7 @@
     import { Sun, Moon } from 'lucide-svelte';
     import { browser } from '$app/environment';
 
-    let darkMode = true;
+    let darkMode = $state(true);
 
     function handleSwitchDarkMode() {
         darkMode = !darkMode;
@@ -28,7 +28,7 @@
 </script>
 
 <div>
-    <input checked={darkMode} on:click={handleSwitchDarkMode} type="checkbox" id="theme-toggle" />
+    <input checked={darkMode} onclick={handleSwitchDarkMode} type="checkbox" id="theme-toggle" />
     <label for="theme-toggle">
         {#if darkMode}
             <Moon class="icon" />
@@ -44,10 +44,6 @@
     }
 
     #theme-toggle + label {
-        @apply inline-block flex h-12 w-12 cursor-pointer rounded-full duration-300;
-    }
-
-    .icon {
-        @apply text-current;
+        @apply flex h-12 w-12 cursor-pointer rounded-full duration-300;
     }
 </style>

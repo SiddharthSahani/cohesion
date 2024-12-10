@@ -1,6 +1,5 @@
 <script>
     import SignInCard from '$lib/components/SignInCard.svelte';
-    export let form;
     import * as Tabs from '$lib/components/ui/tabs/index.js';
     import Input from '$lib/components/ui/input/input.svelte';
     import { Textarea } from '$lib/components/ui/textarea/index.js';
@@ -8,7 +7,9 @@
     import * as Card from '$lib/components/ui/card/index.js';
     import { page } from '$app/stores';
     import Button from '$lib/components/ui/button/button.svelte';
-    let contextValues = Array(4).fill('');
+
+    let { form } = $props();
+    let contextValues = $state(Array(4).fill(''));
 </script>
 
 {#if $page.data.session}

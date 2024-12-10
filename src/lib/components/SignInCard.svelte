@@ -10,7 +10,7 @@
     </Card.Header>
     <Card.Content class="space-y-2">
         <button
-            on:click={() => signIn('google')}
+            onclick={() => signIn('google')}
             class="flex w-full items-center justify-center gap-2 rounded border border-input/35 bg-white/5 px-4 py-2 transition-colors hover:bg-white/10"
         >
             <svg class="h-5 w-5" viewBox="0 0 24 24">
