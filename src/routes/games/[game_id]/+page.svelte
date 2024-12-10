@@ -113,6 +113,8 @@
             cells[index].isSelected = false;
         }
     };
+
+    shuffleBoardFn();
 </script>
 
 <div class="h-full">
