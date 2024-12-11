@@ -106,4 +106,8 @@
     ::-webkit-scrollbar-thumb:hover {
         background: var(--scrollbar-thumb-hover-color);
     }
+    ::selection {
+        background: #f5af24;
+        color: #0b0b08;
+    }
 }
