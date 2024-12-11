@@ -27,7 +27,7 @@
             <div class="flex h-32 flex-col gap-4">
                 <div class="flex gap-4 rounded-sm border border-input/50 bg-white/5 p-2">
                     <a
-                        class="flex items-center gap-1 rounded-sm bg-accent px-4 py-1 text-background"
+                        class="flex items-center gap-1 rounded-sm bg-accent px-4 py-1 text-background hover:bg-accent/90"
                         href="/create"
                     >
                         <Plus size="24" strokeWidth="3" />
