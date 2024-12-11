@@ -60,7 +60,7 @@
     {#if isSelected && !isWrong}
         <span class="animate-soft-pulse absolute inset-0 rounded-lg bg-accent/10"></span>
         <div class="sparkle-effect">
-            {#each Array(5) as _, index}
+            {#each Array(8) as _, index}
                 <div
                     class="sparkle"
                     style="left: {Math.random() * 100}%; top: {Math.random() *
