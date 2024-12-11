@@ -2,10 +2,10 @@
     import Card from '$lib/components/ui/card/card.svelte';
     import { Trash2 } from 'lucide-svelte';
     import { ChartArea } from 'lucide-svelte';
-    let { data } = $props();
     import { enhance } from '$app/forms';
-    let validGames = $derived(data.games.filter((game) => game !== null));
 
+    let { data } = $props();
+    let validGames = $derived(data.games.filter((game) => game !== null));
     let totalPlays = $derived(validGames.reduce((acc, game) => acc + (game.playCount || 0), 0));
 
     function handleEnhance() {

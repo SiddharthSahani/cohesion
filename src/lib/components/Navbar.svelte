@@ -1,7 +1,7 @@
 <script>
-    import { page } from '$app/stores';
     import CohesionLogo from '$lib/components/CohesionLogo.svelte';
     import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
+    import { page } from '$app/stores';
 
     let imageError = $state(false);
 

@@ -1,6 +1,6 @@
 <script>
-    import { Info, Shuffle } from 'lucide-svelte';
     import SubmitButton from './SubmitButton.svelte';
+    import { Info, Shuffle } from 'lucide-svelte';
 
     let { shuffleBoardFn, submitEnable, submitFn } = $props();
 </script>
