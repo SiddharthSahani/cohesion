@@ -4,6 +4,7 @@
     import TriesLeft from '$lib/components/TriesLeft.svelte';
     import { incrementPlay, incrementWin } from '$lib/gameApi';
     import { page } from '$app/stores';
+    import { toast } from 'svelte-sonner';
 
     let { data } = $props();
     let cells = $state(
@@ -85,6 +86,9 @@
             for (let i = 0; i < cells.length; i++) {
                 cells[i].isUsed |= cells[i].isSelected;
             }
+            // console log the context
+            console.log(data.clusters[clusterIndex].context);
+            toast.success(data.clusters[clusterIndex].context);
         }
         // win condition
         if (cells.every((cell) => cell.isUsed)) {
