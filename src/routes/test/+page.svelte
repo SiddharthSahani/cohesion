@@ -1,12 +1,14 @@
 <script>
-    import { toast } from 'svelte-sonner';
+    import { SignIn, SignOut } from '@auth/sveltekit/components';
+    import { page } from '$app/stores';
 </script>
 
-<button
-    class="rounded-md bg-primary px-4 py-2 text-white"
-    on:click={() => {
-        toast.error('Hello, world!');
-    }}
->
-    Click me
-</button>
+<div class="text-foreground">
+    <!-- <img src="/img/logo.svg" alt="Company Logo" /> -->
+    {#if $page.data.session}
+        <img src={$page.data.session.user.image ?? 'https://i.pravatar.cc/300'} alt="User Avatar" />
+        <SignOut />
+    {:else}
+        <SignIn provider="google" signInPage="signin" />
+    {/if}
+</div>

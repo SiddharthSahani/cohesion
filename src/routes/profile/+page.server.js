@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 export const load = async ({ params, locals }) => {
     const session = await locals.getSession();
     if (!session?.user) {
-        return fail(401, { message: 'You must be logged in to create a game' });
+        return { games: [] }; // Return empty games array for unauthenticated users
     }
     const games = await getUserGames(session.user.email);
     return { games };
@@ -12,7 +12,6 @@ export const load = async ({ params, locals }) => {
 
 export const actions = {
     deleteGame: async ({ request, locals }) => {
-        // Check authentication
         const session = await locals.getSession();
         if (!session?.user) {
             return fail(401, { message: 'You must be logged in to delete a game' });
@@ -21,27 +20,16 @@ export const actions = {
         try {
             const formData = await request.formData();
             const gameId = formData.get('gameId');
-            const userId = session.user.email; // Using email as userId from session
+            const userId = session.user.email;
 
             if (!gameId) {
                 return fail(400, { message: 'Game ID is required' });
             }
 
             await deleteGame(userId, gameId);
-
-            // Fetch updated games list after deletion
-            const updatedGames = await getUserGames(userId);
-
-            return {
-                success: true,
-                games: updatedGames
-            };
+            return { success: true };
         } catch (error) {
-            console.error('Error deleting game:', error);
-            return fail(500, {
-                success: false,
-                message: 'Failed to delete game'
-            });
+            return fail(500, { message: 'Failed to delete game' });
         }
     }
 };
