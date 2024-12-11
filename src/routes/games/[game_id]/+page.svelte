@@ -1,11 +1,23 @@
 <script>
-    import { page } from '$app/stores';
     import Board from '$lib/components/Board.svelte';
     import BoardHeader from '$lib/components/BoardHeader.svelte';
     import TriesLeft from '$lib/components/TriesLeft.svelte';
     import { incrementPlay, incrementWin } from '$lib/gameApi';
+    import { page } from '$app/stores';
 
     let { data } = $props();
+    let cells = $state(
+        data.clusters
+            .flatMap((cluster) => cluster.words)
+            .map((word) => ({
+                word,
+                isSelected: false,
+                isUsed: false
+            }))
+    );
+    let wrongCells = $state([]);
+    let triesLeft = $state(6);
+    let clustersUsed = [];
 
     async function handleGamePlay() {
         try {
@@ -29,19 +41,6 @@
             handleGamePlay();
         }
     });
-
-    let cells = $state(
-        data.clusters
-            .flatMap((cluster) => cluster.words)
-            .map((word) => ({
-                word,
-                isSelected: false,
-                isUsed: false
-            }))
-    );
-    let wrongCells = $state([]);
-    let triesLeft = $state(6);
-    let clustersUsed = [];
 
     $effect(() => {
         if (wrongCells.length !== 0) {

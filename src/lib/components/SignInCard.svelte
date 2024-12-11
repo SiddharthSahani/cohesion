@@ -1,6 +1,6 @@
 <script>
-    import { signIn } from '@auth/sveltekit/client';
     import * as Card from '$lib/components/ui/card/index.js';
+    import { signIn } from '@auth/sveltekit/client';
 </script>
 
 <Card.Root class="h-fit w-full max-w-md border-input/50 bg-white/5 text-foreground">

@@ -1,4 +1,3 @@
-// src/routes/games/create/+page.server.js
 import { createGame } from '$lib/server/redis';
 import { fail, redirect } from '@sveltejs/kit';
 
@@ -62,7 +61,6 @@ export const actions = {
     }
 };
 
-// Optional: Add a load function if you want to fetch any initial data
 export async function load(event) {
     const session = await event.locals.getSession();
     return { session };

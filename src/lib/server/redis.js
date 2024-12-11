@@ -1,10 +1,12 @@
 import { Redis } from '@upstash/redis';
 import { env } from '$env/dynamic/private';
 import { customAlphabet } from 'nanoid';
+
 const redis = new Redis({
     url: env.UPSTASH_REDIS_URL,
     token: env.UPSTASH_REDIS_TOKEN
 });
+
 export function generateCleanGameId() {
     // Use a custom alphabet that excludes similar-looking characters
     const nanoid = customAlphabet(
