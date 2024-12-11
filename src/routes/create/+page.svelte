@@ -7,9 +7,22 @@
     import * as Card from '$lib/components/ui/card/index.js';
     import { page } from '$app/stores';
     import Button from '$lib/components/ui/button/button.svelte';
-
+    import { Toaster, toast } from 'svelte-sonner';
+    import { CircleX } from 'lucide-svelte';
+    import { enhance } from '$app/forms';
     let { form } = $props();
     let contextValues = $state(Array(4).fill(''));
+    let errorMessage = $state('');
+    let isSubmitting = $state(false); // Add this for loading state
+
+    const validateForm = () => {
+        const isContextValid = contextValues.every((value) => value.trim() !== '');
+        if (!isContextValid) {
+            toast.error('Please fill in all context fields.');
+            return false;
+        }
+        return true;
+    };
 </script>
 
 {#if $page.data.session}
@@ -22,7 +35,34 @@
             </div>
         {/if}
 
-        <form method="POST" class="space-y-4 text-foreground">
+        <form
+            method="POST"
+            class="space-y-4 text-foreground"
+            use:enhance={() => {
+                // Client-side validation
+                if (!validateForm()) {
+                    return false; // Prevents form submission
+                }
+
+                isSubmitting = true; // Show loading state
+
+                return ({ update, result }) => {
+                    isSubmitting = false; // Hide loading state
+
+                    // Handle server response
+                    if (result.type === 'error') {
+                        toast.error(result.error.message);
+                    } else if (result.type === 'failure') {
+                        toast.error(form?.message || 'Failed to create game');
+                    } else if (result.type === 'success') {
+                        toast.success('Game created successfully!');
+                    }
+
+                    // Update the form
+                    update();
+                };
+            }}
+        >
             <Card.Root class="border-input/50 bg-white/5 text-foreground">
                 <Card.Header>
                     <Card.Title>Game Details</Card.Title>
@@ -75,7 +115,6 @@
                                             id={`cluster-${clusterIndex}-context`}
                                             class="w-full rounded border border-input/35 p-2"
                                             maxlength="50"
-                                            required
                                             bind:value={contextValues[clusterIndex]}
                                         />
                                         <p class="text-sm text-foreground/70">
@@ -87,16 +126,22 @@
                         </div>
                     {/each}
                 </Card.Content>
-                <Card.Footer class="flex ">
+                <Card.Footer class="flex flex-col gap-4">
                     <Button
                         type="submit"
                         class="text-md w-full bg-accent font-bold text-background hover:bg-accent/90"
-                        on:click={async (event) => {
-                            console.log('data', form);
-                        }}
+                        disabled={isSubmitting}
                     >
-                        Create Game
+                        {isSubmitting ? 'Creating...' : 'Create Game'}
                     </Button>
+                    {#if errorMessage}
+                        <div
+                            class="mb-4 flex w-full items-center gap-1 rounded-md bg-red-500/20 px-4 py-1 text-red-500/75"
+                        >
+                            <CircleX size={20} />
+                            {errorMessage}
+                        </div>
+                    {/if}
                 </Card.Footer>
             </Card.Root>
         </form>

@@ -32,7 +32,7 @@
 
                 {#if imageError}
                     <div
-                        class="flex h-full w-full items-center justify-center rounded-full bg-muted text-xl font-bold uppercase"
+                        class="flex h-full w-full items-center justify-center rounded-full bg-tertiary/50 text-xl font-bold uppercase"
                     >
                         {$page.data.session.user.name?.[0] || '?'}
                     </div>

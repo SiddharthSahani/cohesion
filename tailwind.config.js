@@ -1,5 +1,6 @@
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import tailwindcssAnimate from 'tailwindcss-animate';
+import { error } from '@sveltejs/kit';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -16,6 +17,10 @@ const config = {
         },
         extend: {
             colors: {
+                error: {
+                    DEFAULT: 'hsl(var(--error))',
+                    foreground: 'hsl(var(--error-foreground))'
+                },
                 border: 'hsl(var(--border) / <alpha-value>)',
                 input: 'hsl(var(--input) / <alpha-value>)',
                 ring: 'hsl(var(--ring) / <alpha-value>)',

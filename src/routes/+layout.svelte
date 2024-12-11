@@ -2,6 +2,7 @@
     import { Sun } from 'lucide-svelte';
     import '../app.css';
     import Navbar from '$lib/components/Navbar.svelte';
+    import { Toaster } from '$lib/components/ui/sonner/index.js';
     import { page } from '$app/stores';
     let { children } = $props();
 </script>
@@ -11,6 +12,7 @@
 >
     <Navbar />
     <div class="flex flex-grow items-center justify-center overflow-auto">
+        <Toaster theme="system" position="bottom-center" />
         {@render children()}
     </div>
 
