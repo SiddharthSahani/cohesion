@@ -52,11 +52,11 @@
             animate(
                 plusIcon,
                 {
-                    rotate: [0, 180],
+                    rotate: [0, 90],
                     scale: [1, 1.025, 1]
                 },
                 {
-                    duration: 0.35,
+                    duration: 0.125,
                     easing: 'ease-out'
                 }
             );

@@ -18,7 +18,7 @@
         <ThemeSwitch />
 
         {#if $page.data.session}
-            <a class="relative h-12 w-12 select-none" href="/profile">
+            <a class="relative h-10 w-10 select-none" href="/profile">
                 <img
                     class="aspect-square h-full w-12 rounded-full object-cover {imageError
                         ? 'hidden'

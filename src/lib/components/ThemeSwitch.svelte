@@ -27,9 +27,9 @@
     }
 </script>
 
-<div>
+<div class="flex aspect-square h-full items-center justify-center">
     <input checked={darkMode} onclick={handleSwitchDarkMode} type="checkbox" id="theme-toggle" />
-    <label for="theme-toggle">
+    <label for="theme-toggle" class="flex h-full w-full items-center">
         {#if darkMode}
             <Moon class="icon" />
         {:else}
@@ -40,10 +40,10 @@
 
 <style lang="postcss">
     #theme-toggle {
-        @apply invisible;
+        @apply invisible absolute;
     }
 
     #theme-toggle + label {
-        @apply flex h-12 w-12 cursor-pointer rounded-full duration-300;
+        @apply flex aspect-square cursor-pointer items-center justify-center rounded-full bg-secondary/50 p-2 duration-300 hover:bg-secondary/75;
     }
 </style>
