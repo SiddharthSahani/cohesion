@@ -102,6 +102,7 @@
 
     .cell-wrapper {
         animation: fadeIn 0.3s ease-out;
+        overflow: hidden;
     }
 
     .cluster-container {

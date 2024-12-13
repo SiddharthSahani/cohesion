@@ -70,7 +70,7 @@
         </div>
     {/if}
 
-    <span class="relative z-10 capitalize">{text}</span>
+    <span class="relative z-10 truncate capitalize">{text}</span>
 </button>
 
 <style>
