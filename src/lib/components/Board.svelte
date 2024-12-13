@@ -41,7 +41,7 @@
                                    cursor-pointer items-center justify-center rounded-xl bg-accent/65
                                    opacity-0 backdrop-blur-lg transition-opacity group-hover:opacity-100"
                         >
-                            <span class="text-lg font-bold text-accent-foreground">
+                            <span class="text-lg font-bold capitalize text-accent-foreground">
                                 {cluster.context}
                             </span>
                         </div>
