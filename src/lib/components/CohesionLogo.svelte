@@ -15,5 +15,5 @@
             class="fill-foreground text-foreground"
         />
     </svg>
-    <span class="text-4xl font-bold text-foreground"> ohesion </span>
+    <span class="select-none text-4xl font-bold text-foreground"> ohesion </span>
 </div>

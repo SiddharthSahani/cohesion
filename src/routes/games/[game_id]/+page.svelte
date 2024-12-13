@@ -7,18 +7,22 @@
     import { toast } from 'svelte-sonner';
 
     let { data } = $props();
-    let cells = $state(
-        data.clusters
+
+    // Game states
+    let gameState = $state({
+        status: 'playing', // 'playing', 'won', 'lost'
+        correctClusters: [],
+        cells: data.clusters
             .flatMap((cluster) => cluster.words)
             .map((word) => ({
                 word,
                 isSelected: false,
-                isUsed: false
-            }))
-    );
-    let wrongCells = $state([]);
-    let triesLeft = $state(6);
-    let clustersUsed = [];
+                isUsed: false,
+                cluster: null
+            })),
+        wrongCells: [],
+        triesLeft: 6
+    });
 
     async function handleGamePlay() {
         try {
@@ -31,40 +35,43 @@
     async function handleGameWin() {
         try {
             await incrementWin(data.game_id);
+            gameState.status = 'won';
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
-    // when notried left is 0, game is over
     $effect(() => {
-        if (triesLeft === 0) {
+        if (gameState.triesLeft === 0) {
             handleGamePlay();
+            gameState.status = 'lost';
         }
     });
 
     $effect(() => {
-        if (wrongCells.length !== 0) {
+        if (gameState.wrongCells.length !== 0) {
             setTimeout(() => {
-                wrongCells = [];
+                gameState.wrongCells = [];
             }, 2000);
         }
     });
 
     const shuffleBoardFn = () => {
-        cells = cells
+        gameState.cells = gameState.cells
             .map((value) => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
     };
 
     const submitFn = () => {
-        const selectedWords = cells.filter((cell) => cell.isSelected).map((cell) => cell.word);
+        const selectedWords = gameState.cells
+            .filter((cell) => cell.isSelected)
+            .map((cell) => cell.word);
         let clusterIndex = -1;
 
         // Find a matching cluster
         for (let i = 0; i < data.clusters.length; i++) {
-            if (clustersUsed.includes(i)) {
+            if (gameState.correctClusters.includes(i)) {
                 continue;
             }
 
@@ -72,48 +79,48 @@
                 selectedWords.filter((word) => data.clusters[i].words.includes(word)).length === 4
             ) {
                 clusterIndex = i;
-                clustersUsed.push(i);
+                gameState.correctClusters.push(i);
                 break;
             }
         }
 
         // If no matching cluster is found
         if (clusterIndex === -1) {
-            triesLeft--;
-            wrongCells = cells.filter((cell) => cell.isSelected);
+            gameState.triesLeft--;
+            gameState.wrongCells = gameState.cells.filter((cell) => cell.isSelected);
         } else {
             // Correct cluster found
-            for (let i = 0; i < cells.length; i++) {
-                cells[i].isUsed |= cells[i].isSelected;
+            for (let i = 0; i < gameState.cells.length; i++) {
+                if (gameState.cells[i].isSelected) {
+                    gameState.cells[i].isUsed = true;
+                    gameState.cells[i].cluster = clusterIndex;
+                }
             }
-            // console log the context
-            console.log(data.clusters[clusterIndex].context);
             toast.success(data.clusters[clusterIndex].context);
         }
-        // win condition
-        if (cells.every((cell) => cell.isUsed)) {
+
+        // Win condition
+        if (gameState.cells.every((cell) => cell.isUsed)) {
             handleGameWin();
             handleGamePlay();
         }
 
         // Deselect all cells after submission
-        for (let i = 0; i < cells.length; i++) {
-            cells[i].isSelected = false;
-        }
+        gameState.cells.forEach((cell) => (cell.isSelected = false));
     };
 
     const selectCellFn = (index) => {
-        if (cells[index].isUsed) {
+        if (gameState.cells[index].isUsed || gameState.status !== 'playing') {
             return;
         }
 
-        if (!cells[index].isSelected) {
-            if (cells.reduce((acc, cell) => acc + cell.isSelected, 0) >= 4) {
+        if (!gameState.cells[index].isSelected) {
+            if (gameState.cells.reduce((acc, cell) => acc + cell.isSelected, 0) >= 4) {
                 return;
             }
-            cells[index].isSelected = true;
+            gameState.cells[index].isSelected = true;
         } else {
-            cells[index].isSelected = false;
+            gameState.cells[index].isSelected = false;
         }
     };
 
@@ -128,11 +135,17 @@
         <BoardHeader
             {shuffleBoardFn}
             {submitFn}
-            submitEnable={triesLeft > 0 &&
-                cells.reduce((acc, cell) => acc + cell.isSelected, 0) === 4}
+            submitEnable={gameState.status === 'playing' &&
+                gameState.cells.reduce((acc, cell) => acc + cell.isSelected, 0) === 4}
         />
-        <Board {cells} {selectCellFn} {wrongCells} />
-        <TriesLeft {triesLeft} totalTries={6} />
+        <Board
+            cells={gameState.cells}
+            {selectCellFn}
+            wrongCells={gameState.wrongCells}
+            correctClusters={gameState.correctClusters.map((index) => data.clusters[index])}
+            gameStatus={gameState.status}
+        />
+        <TriesLeft triesLeft={gameState.triesLeft} totalTries={6} />
     {:else}
         <h1 class="py-12 text-center text-4xl font-bold text-foreground">Game not found</h1>
         <p class="py-12 text-center text-xl text-foreground">
