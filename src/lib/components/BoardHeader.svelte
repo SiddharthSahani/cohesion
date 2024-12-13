@@ -23,32 +23,32 @@
 
     const REPORT_REASONS = {
         INAPPROPRIATE: {
-            label: 'Inappropriate Content',
+            label: 'inappropriate_content',
             icon: '🚫',
             description: 'Content that violates community guidelines'
         },
         OFFENSIVE: {
-            label: 'Offensive Language',
+            label: 'offensive_language',
             icon: '⚠️',
             description: 'Harmful or disrespectful content'
         },
         INCORRECT: {
-            label: 'Incorrect Answer',
+            label: 'incorrect_answer',
             icon: '❌',
             description: 'Solution is wrong or misleading'
         },
         OTHER: {
-            label: 'Other Issue',
+            label: 'other',
             icon: '⚡',
             description: 'Something else needs attention'
         }
     };
 
-    async function handleReport(reason) {
+    async function handleReport({ reason }) {
         if (isSubmitting) return;
         isSubmitting = true;
         selectedReason = reason;
-
+        console.log('Submitting report:', REPORT_REASONS[reason].label);
         try {
             const response = await fetch('/api/report', {
                 method: 'POST',
@@ -58,7 +58,7 @@
                 body: JSON.stringify({
                     url: window.location.href,
                     reason: REPORT_REASONS[reason].label,
-                    user: page.data.session?.user
+                    user: $page.data.session || null
                 })
             });
 
@@ -148,7 +148,7 @@
                         key
                             ? 'border-primary bg-primary/10'
                             : ''}"
-                        onClick={() => handleReport(key)}
+                        onclick={() => handleReport({ reason: key })}
                         disabled={isSubmitting}
                     >
                         <div class="flex items-center gap-3">
