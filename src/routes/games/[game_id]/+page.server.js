@@ -1,6 +1,8 @@
 import { getGame, incrementPlayCount, incrementWinCount } from '$lib/server/redis';
 
 export const load = async ({ params }) => {
+    console.log('fetching game:', params.game_id);
+
     try {
         // Fetch game details from Redis
         const game = await getGame(params.game_id);
