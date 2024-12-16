@@ -1,6 +1,5 @@
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import tailwindcssAnimate from 'tailwindcss-animate';
-import { error } from '@sveltejs/kit';
 
 /** @type {import('tailwindcss').Config} */
 const config = {

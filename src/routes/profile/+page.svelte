@@ -122,7 +122,7 @@
         <SignOut className="font-medium bg-secondary px-4 py-2 rounded-md" />
     </section>
 {:else}
-    <div class="flex h-full w-full justify-center px-6"><SignInCard /></div>
+    <div class="flex h-full w-full justify-center px-6 py-4"><SignInCard /></div>
 {/if}
 
 <style>
