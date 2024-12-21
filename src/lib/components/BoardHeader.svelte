@@ -1,4 +1,5 @@
 <script>
+    import posthog from 'posthog-js';
     import { fade } from 'svelte/transition';
     import { elasticInOut } from 'svelte/easing';
     import { scale } from 'svelte/transition';
@@ -14,6 +15,9 @@
     let isSubmitting = $state(false);
 
     const handleCopy = () => {
+        posthog.capture('share', {
+            url: window.location.href
+        });
         navigator.clipboard.writeText(window.location.href);
         toast('Link copied to clipboard', {
             type: 'success',

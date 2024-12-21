@@ -1,10 +1,19 @@
 <script>
+    import posthog from 'posthog-js';
+    import { browser } from '$app/environment';
+    import { beforeNavigate, afterNavigate } from '$app/navigation';
+
     import { Sun } from 'lucide-svelte';
     import '../app.css';
     import Navbar from '$lib/components/Navbar.svelte';
     import { Toaster } from '$lib/components/ui/sonner/index.js';
     import { page } from '$app/stores';
     let { children } = $props();
+
+    if (browser) {
+        beforeNavigate(() => posthog.capture('$pageleave'));
+        afterNavigate(() => posthog.capture('$pageview'));
+    }
 </script>
 
 <div
