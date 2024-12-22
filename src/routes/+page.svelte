@@ -73,7 +73,10 @@
                 use:handleStarHover
             >
                 <Star size="20" strokeWidth="2.5" class="star-icon" />
-                Star us on GitHub
+
+                <span class="text-md truncate px-1 font-bold text-foreground">
+                    Our Code is Public on GitHub, feel free to Star it!</span
+                >
             </a>
         </div>
         <div class="flex-grow sm:w-full">

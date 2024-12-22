@@ -1,29 +1,12 @@
 <script>
     import { Sun, Moon } from 'lucide-svelte';
     import { browser } from '$app/environment';
-
+    import { toggleMode } from 'mode-watcher';
     let darkMode = $state(true);
 
     function handleSwitchDarkMode() {
+        toggleMode();
         darkMode = !darkMode;
-        localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-        darkMode
-            ? document.documentElement.classList.add('dark')
-            : document.documentElement.classList.remove('dark');
-    }
-
-    if (browser) {
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) &&
-                window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-            darkMode = true;
-        } else {
-            document.documentElement.classList.remove('dark');
-            darkMode = false;
-        }
     }
 </script>
 

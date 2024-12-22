@@ -9,6 +9,7 @@
     import { Toaster } from '$lib/components/ui/sonner/index.js';
     import { page } from '$app/stores';
     let { children } = $props();
+    import { ModeWatcher } from 'mode-watcher';
 
     if (browser) {
         beforeNavigate(() => posthog.capture('$pageleave'));
@@ -22,6 +23,7 @@
     <Navbar />
     <div class="flex flex-grow items-center justify-center overflow-auto">
         <Toaster theme="system" position="bottom-center" />
+        <ModeWatcher />
         {@render children()}
     </div>
 
