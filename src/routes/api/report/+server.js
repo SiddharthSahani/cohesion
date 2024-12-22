@@ -1,7 +1,3 @@
-export const config = {
-    runtime: 'edge',
-    regions: ['bom1', 'cle1', 'lhr1'] // Optional: specify deployment regions
-};
 import { json } from '@sveltejs/kit';
 import { submitReport } from '$lib/server/flag';
 import { rateLimiter } from '$lib/server/rateLimiter';
