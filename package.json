@@ -37,9 +37,11 @@
         "@auth/upstash-redis-adapter": "^2.7.4",
         "@supabase/supabase-js": "^2.47.6",
         "@upstash/redis": "^1.34.3",
+        "bufferutil": "^4.0.8",
         "lucide-svelte": "^0.462.0",
         "motion": "^11.11.17",
         "nanoid": "^5.0.9",
-        "posthog-js": "^1.203.1"
+        "posthog-js": "^1.203.1",
+        "utf-8-validate": "^6.0.5"
     }
 }
