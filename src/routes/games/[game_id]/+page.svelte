@@ -1,8 +1,3 @@
-<svelte:head>
-    <title>Cohesion</title>
-    <meta name="description" content="Get cohesions and play" />
-</svelte:head>
-
 <script>
     import Board from '$lib/components/Board.svelte';
     import BoardHeader from '$lib/components/BoardHeader.svelte';
@@ -131,6 +126,11 @@
 
     shuffleBoardFn();
 </script>
+
+<svelte:head>
+    <title>Cohesion</title>
+    <meta name="description" content="Get cohesions and play" />
+</svelte:head>
 
 <div class="h-full">
     {#if data.isValid}

@@ -1,8 +1,3 @@
-<svelte:head>
-    <title>Create New Game</title>
-    <meta name="description" content="Create a new game with custom clusters and words" />
-</svelte:head>
-
 <script>
     import SignInCard from '$lib/components/SignInCard.svelte';
     import SubmitButton from '$lib/components/SubmitButton.svelte';
@@ -30,6 +25,11 @@
         return true;
     };
 </script>
+
+<svelte:head>
+    <title>Create New Game</title>
+    <meta name="description" content="Create a new game with custom clusters and words" />
+</svelte:head>
 
 {#if $page.data.session}
     <div class="container mx-auto mt-4 h-screen">
