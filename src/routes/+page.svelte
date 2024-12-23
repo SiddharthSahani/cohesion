@@ -110,10 +110,10 @@
                 <div class="flex flex-col gap-4">
                     <div class="text-2xl font-bold text-foreground">Trending Cohesions</div>
                     <div class="flex flex-col gap-3">
-                        <!-- {#each visibleBoards as board}
+                        {#each visibleBoards as board}
                             <BoardCard {...board} />
-                        {/each} -->
-                        {JSON.stringify(visibleBoards)}
+                        {/each}
+                        <!-- {JSON.stringify(visibleBoards)} -->
                     </div>
                 </div>
             </div>
