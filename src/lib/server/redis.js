@@ -91,10 +91,10 @@ export async function queryGames(options = {}) {
 
     // Sort games
     games.sort((a, b) => {
-        if (a[sortBy] < b[sortBy]) {
+        if (a.sortBy < b.sortBy) {
             return order === 'asc' ? -1 : 1;
         }
-        if (a[sortBy] > b[sortBy]) {
+        if (a.sortBy > b.sortBy) {
             return order === 'asc' ? 1 : -1;
         }
         return 0;
