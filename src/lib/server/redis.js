@@ -35,6 +35,7 @@ export async function createGame(userId, gameData) {
         id: gameId,
         userId,
         title: gameData.title,
+        flair: gameData.flair,
         createdAt: new Date().toISOString(),
         playCount: 0,
         winCount: 0,
@@ -75,12 +76,13 @@ export async function getUserGames(userId) {
  * @returns {Promise<Array>} - Sorted list of games
  */
 export async function queryGames(options = {}) {
-    const { sortBy = 'createdAt', order = 'desc', limit = 10 } = options;
+    const { sortBy = 'createdAt', order = 'desc', limit = 10, flair } = options;
 
     // Get all game keys
     const allGameKeys = await redis.keys('game:*');
 
     // Fetch game details
+
     const games = await Promise.all(
         allGameKeys.map(async (key) => {
             return await redis.hgetall(key);
@@ -88,14 +90,23 @@ export async function queryGames(options = {}) {
     );
 
     // Sort games
-    return games
-        .sort((a, b) => {
-            if (order === 'desc') {
-                return new Date(b[sortBy]) - new Date(a[sortBy]);
-            }
-            return new Date(a[sortBy]) - new Date(b[sortBy]);
-        })
-        .slice(0, limit);
+    games.sort((a, b) => {
+        if (a[sortBy] < b[sortBy]) {
+            return order === 'asc' ? -1 : 1;
+        }
+        if (a[sortBy] > b[sortBy]) {
+            return order === 'asc' ? 1 : -1;
+        }
+        return 0;
+    });
+
+    // Filter games by flair
+    if (flair) {
+        return games.filter((game) => game.flair === flair);
+    }
+
+    // Limit games
+    return games.slice(0, limit);
 }
 
 /**
@@ -167,4 +178,25 @@ export async function getGame(gameId) {
     }
 
     return game;
+}
+
+/**
+ * Search games by title
+ * @param {string} query - Search query
+ * @returns {Promise<Array>} - List of games
+ */
+export async function searchGames(query) {
+    // Get all game keys
+    const allGameKeys = await redis.keys('game:*');
+    console.log('allGameKeys:', allGameKeys);
+    // Fetch game details
+    const games = await Promise.all(
+        allGameKeys.map(async (key) => {
+            return await redis.hgetall(key);
+        })
+    );
+    console.log('games:', games);
+
+    // Filter games by title
+    return games.filter((game) => game.title.toLowerCase().includes(query.toLowerCase()));
 }

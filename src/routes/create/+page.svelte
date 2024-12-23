@@ -15,6 +15,7 @@
     let contextValues = $state(Array(4).fill(''));
     let errorMessage = $state('');
     let isSubmitting = $state(false); // Add this for loading state
+    let selectedFlair = $state('');
 
     const validateForm = () => {
         const isContextValid = contextValues.every((value) => value.trim() !== '');
@@ -75,16 +76,36 @@
                     <Card.Description>Fill in the details for your new game</Card.Description>
                 </Card.Header>
                 <Card.Content class="space-y-4">
-                    <div>
-                        <label for="title" class="mb-2 block">Game Title</label>
-                        <Input
-                            type="text"
-                            name="title"
-                            id="title"
-                            required
-                            class="w-full rounded border border-input/35 p-2"
-                            value={form?.title || ''}
-                        />
+                    <div class="flex w-full gap-4">
+                        <div class="w-1/2">
+                            <label for="title" class="mb-2 block">Game Title</label>
+                            <Input
+                                type="text"
+                                name="title"
+                                id="title"
+                                required
+                                class="w-full rounded border border-input/35 p-2"
+                                value={form?.title || ''}
+                            />
+                        </div>
+                        <div class="w-1/2">
+                            <label for="flair" class="mb-2 block">Game Flair</label>
+                            <select
+                                name="flair"
+                                id="flair"
+                                required
+                                class="4 w-full rounded border border-input/35 p-2"
+                                bind:value={selectedFlair}
+                            >
+                                <option value="" disabled selected>Select a flair</option>
+                                <option value="games">Games</option>
+                                <option value="sports">Sports</option>
+                                <option value="science">Science</option>
+                                <option value="history">History</option>
+                                <option value="other">Other</option>
+                                <!-- Add more predefined flairs as needed -->
+                            </select>
+                        </div>
                     </div>
 
                     {#each Array(4) as _, clusterIndex}

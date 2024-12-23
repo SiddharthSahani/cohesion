@@ -7,7 +7,8 @@ export const load = async ({ params }) => {
         (game) => ({
             id: game.id,
             name: game.title,
-            timesPlayed: game.playCount
+            timesPlayed: game.playCount,
+            flair: game.flair || 'none'
         })
     );
     return { boards };

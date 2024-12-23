@@ -12,6 +12,7 @@ export const actions = {
         const formData = await request.formData();
 
         const title = formData.get('title').trim();
+        const flair = formData.get('flair')?.trim();
         if (!title) {
             return fail(401, { message: 'Game title is required' });
         }
@@ -41,7 +42,7 @@ export const actions = {
 
         try {
             // If you want to actually create the game, uncomment this
-            const gameId = await createGame(session.user.email, { title, clusters });
+            const gameId = await createGame(session.user.email, { title, clusters, flair });
 
             // Use throw redirect with 303 status
             throw redirect(303, `/games/${gameId}`);
