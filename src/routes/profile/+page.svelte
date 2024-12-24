@@ -62,7 +62,7 @@
                                 </h3>
                                 <div class="flex items-center gap-2">
                                     <span
-                                        class="rounded-lg bg-secondary px-2 py-1 text-sm backdrop-blur-sm"
+                                        class="whitespace-nowrap rounded-lg bg-secondary px-2 py-1 text-sm backdrop-blur-sm"
                                     >
                                         {game.playCount} plays
                                     </span>
