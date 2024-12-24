@@ -28,9 +28,12 @@
     use:handleEnter
     onoutrostart={handleLeave}
 >
-    <div class="flex items-center gap-3">
-        <Dices size="24" stroke="2" />
-        <span class="select-none text-xl font-semibold capitalize text-foreground">{name}</span>
+    <div class="flex w-3/5 items-center gap-3">
+        <div class="aspect-square h-full"><Dices size="24" stroke="2" /></div>
+
+        <span class="select-none truncate text-xl font-semibold capitalize text-foreground"
+            >{name}</span
+        >
     </div>
     <span class="select-none text-sm font-semibold text-foreground/50"
         >{timesPlayed} matches played</span
