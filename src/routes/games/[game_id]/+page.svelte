@@ -138,8 +138,10 @@
             {data.board_title}
         </h1>
         <BoardHeader
+            cells={gameState.cells}
             {shuffleBoardFn}
             {submitFn}
+            title={data.board_title}
             submitEnable={gameState.status === 'playing' &&
                 gameState.cells.reduce((acc, cell) => acc + cell.isSelected, 0) === 4}
         />

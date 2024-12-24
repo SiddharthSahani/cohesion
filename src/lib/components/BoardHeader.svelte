@@ -5,15 +5,17 @@
     import { scale } from 'svelte/transition';
     import SubmitButton from './SubmitButton.svelte';
     import { Info, Shuffle, AlertTriangle } from 'lucide-svelte';
-    import { Share2 } from 'lucide-svelte';
+    import { Share2, Camera } from 'lucide-svelte';
     import { toast } from 'svelte-sonner';
     import { page } from '$app/stores';
+    import html2canvas from 'html2canvas'; // Import html2canvas
 
-    let { shuffleBoardFn, submitEnable, submitFn } = $props();
+    let { shuffleBoardFn, submitEnable, submitFn, cells, title } = $props();
     let showReportDialog = $state(false);
+    let showShareDialog = $state(false);
     let selectedReason = $state('');
     let isSubmitting = $state(false);
-
+    let isCapturing = $state(false);
     const handleCopy = () => {
         posthog.capture('share', {
             url: window.location.href
@@ -24,7 +26,30 @@
             duration: 2000
         });
     };
+    const handleScreenshot = async () => {
+        isCapturing = true;
+        const element = document.querySelector('.screenshot-target');
 
+        // Ensure all fonts are loaded before capturing the screenshot
+        await document.fonts.ready;
+
+        // Capture the screenshot
+        const canvas = await html2canvas(element, {
+            scale: 5, // Increase scale for better quality
+            useCORS: true // Use CORS to handle cross-origin issues
+        });
+
+        const dataUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'screenshot.png';
+        link.click();
+        toast('Screenshot captured and downloaded.', {
+            type: 'success',
+            duration: 2000
+        });
+        isCapturing = false;
+    };
     const REPORT_REASONS = {
         INAPPROPRIATE: {
             label: 'inappropriate_content',
@@ -90,6 +115,10 @@
             selectedReason = '';
         }
     }
+
+    async function handleShare() {
+        showShareDialog = false;
+    }
 </script>
 
 <div
@@ -97,7 +126,7 @@
 >
     <div class="flex gap-2">
         <button
-            onclick={handleCopy}
+            onclick={() => (showShareDialog = true)}
             class="flex w-auto cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-tertiary bg-secondary/50 px-4 opacity-75 hover:bg-primary/10 sm:flex"
         >
             <Share2 size="20" strokeWidth="2.5" class="text-primary" />
@@ -181,7 +210,115 @@
     </div>
 {/if}
 
+{#if showShareDialog}
+    <div
+        class="  absolute inset-0 z-50 flex w-full items-center justify-center bg-background/80 backdrop-blur-sm {showShareDialog
+            ? ''
+            : 'hidden'}"
+        transition:fade={{ duration: 200 }}
+    >
+        <div
+            class="w-full max-w-xl rounded-lg border border-input bg-background p-6 shadow-lg"
+            transition:scale={{ duration: 200 }}
+        >
+            <div class="mb-6 flex items-center justify-between">
+                <h2 class="text-2xl font-bold">Share this game! 🌟</h2>
+                <button
+                    class="rounded-full p-2 hover:bg-secondary/30"
+                    onclick={() => (showShareDialog = false)}
+                >
+                    ✕
+                </button>
+            </div>
+
+            <div class="screenshot-target flex flex-col gap-3 bg-background p-2">
+                <span
+                    class="px-2 text-left text-xl font-bold text-foreground {isCapturing
+                        ? '-translate-y-2'
+                        : ''}"
+                >
+                    {title}
+                </span>
+                <div class="flex flex-col items-center gap-3">
+                    <!-- Add 4x4 Grid -->
+                    <div class="grid w-full grid-cols-4 gap-2 rounded-lg bg-secondary/20 p-4">
+                        {#each Array(4) as _, row}
+                            {#each Array(4) as _, col}
+                                {@const cell = cells[row * 4 + col]}
+                                <div
+                                    class="flex items-center justify-center rounded border border-input/20 bg-secondary
+                                           p-2 text-center text-sm font-medium
+                                           {cell.isUsed ? 'opacity-50' : ''}
+                                           {cell.isSelected ? 'ring-2 ring-accent' : ''}"
+                                >
+                                    <span
+                                        class="flex items-center justify-center text-lg font-bold
+                                            {isCapturing ? '-translate-y-2' : ''}
+                                        "
+                                    >
+                                        {cell.word}</span
+                                    >
+                                </div>
+                            {/each}
+                        {/each}
+                    </div>
+                    <div class="flex w-full gap-2">
+                        <button
+                            onclick={handleCopy}
+                            type="text"
+                            class="flex w-full items-center justify-center rounded-sm border border-input/50 bg-accent/90 px-2 py-1 text-sm font-bold text-background ring-0 focus:ring-0
+                           
+                            "
+                        >
+                            <span class="   {isCapturing ? '-translate-y-2' : ''}">
+                                {window.location.href}
+                            </span>
+                        </button>
+                        <button
+                            onclick={handleScreenshot}
+                            class="rounded-lg border border-input/50 bg-secondary/20 p-2"
+                        >
+                            <Camera size="24" strokeWidth="2.5" class="text-primary" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
+
 <style>
+    .screenshot-target {
+        font-family:
+            'YourFontFamily',
+            system-ui,
+            -apple-system,
+            sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Add these properties to help with text positioning */
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+        /* Ensure proper line height */
+        line-height: normal;
+    }
+
+    /* Ensure all text elements within the screenshot have explicit line height */
+    .screenshot-target * {
+        line-height: normal;
+        position: relative;
+    }
+
+    /* Add specific adjustments for text elements if needed */
+    .screenshot-target .text-sm {
+        line-height: 1.2;
+    }
+
+    .screenshot-target .text-lg {
+        line-height: 1.4;
+    }
+
     @keyframes pulse {
         0%,
         100% {
