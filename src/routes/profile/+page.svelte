@@ -57,7 +57,9 @@
                             class={` transform rounded-sm border-2 border-tertiary/50 bg-foreground/5 p-6 transition-all duration-300 ease-out `}
                         >
                             <div class="mb-4 flex items-start justify-between">
-                                <h3 class="text-xl font-bold text-foreground">{game.title}</h3>
+                                <h3 class="text-xl font-bold capitalize text-foreground">
+                                    {game.title}
+                                </h3>
                                 <div class="flex items-center gap-2">
                                     <span
                                         class="rounded-lg bg-secondary px-2 py-1 text-sm backdrop-blur-sm"
@@ -86,7 +88,9 @@
                                     <div
                                         class="cluster-card rounded-md bg-black/20 p-3 backdrop-blur-sm transition-all duration-200 hover:bg-black/30"
                                     >
-                                        <div class="mb-2 text-sm font-medium text-foreground/75">
+                                        <div
+                                            class="mb-2 text-sm font-medium capitalize text-foreground/75"
+                                        >
                                             {cluster.context}
                                         </div>
                                         <div class="flex flex-wrap gap-2">
