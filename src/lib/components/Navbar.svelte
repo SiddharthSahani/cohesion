@@ -41,7 +41,7 @@
         {:else}
             <a
                 href="/create"
-                class="rounded-sm bg-accent px-4 py-2 font-bold text-foreground dark:text-background"
+                class="rounded-sm bg-accent px-4 py-2 font-bold text-foreground dark:text-background max-sm:hidden"
                 >Create Cohesions</a
             >
         {/if}
