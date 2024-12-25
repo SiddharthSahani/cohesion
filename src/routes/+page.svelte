@@ -88,10 +88,10 @@
                         use:handleCreateHover
                     >
                         <Plus size="24" strokeWidth="3" class="plus-icon" />
-                        <span class="truncate text-lg font-bold">Create New</span>
+                        <span class="hidden truncate text-lg font-bold sm:flex">Create New</span>
                     </a>
                     <div
-                        class="flex select-none items-center gap-2 truncate rounded-lg bg-secondary/50 p-2"
+                        class="flex w-full select-none items-center gap-2 truncate rounded-lg bg-secondary/50 p-2"
                     >
                         <Search
                             size="24"
