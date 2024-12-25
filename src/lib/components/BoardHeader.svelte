@@ -27,29 +27,90 @@
         });
     };
     const handleScreenshot = async () => {
-        isCapturing = true;
-        const element = document.querySelector('.screenshot-target');
+        try {
+            isCapturing = true;
+            const element = document.querySelector('.screenshot-target');
 
-        // Ensure all fonts are loaded before capturing the screenshot
-        await document.fonts.ready;
+            // Wait for fonts and images to load
+            await document.fonts.ready;
+            await Promise.all(
+                Array.from(element.querySelectorAll('img'))
+                    .filter((img) => !img.complete)
+                    .map(
+                        (img) =>
+                            new Promise((resolve) => {
+                                img.onload = img.onerror = resolve;
+                            })
+                    )
+            );
 
-        // Capture the screenshot
-        const canvas = await html2canvas(element, {
-            scale: 5, // Increase scale for better quality
-            useCORS: true // Use CORS to handle cross-origin issues
-        });
+            // Force layout recalculation
+            element.style.transform = 'translateZ(0)';
+            await new Promise((resolve) => setTimeout(resolve, 100));
 
-        const dataUrl = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = 'screenshot.png';
-        link.click();
-        toast('Screenshot captured and downloaded.', {
-            type: 'success',
-            duration: 2000
-        });
-        isCapturing = false;
+            const canvas = await html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                foreignObjectRendering: false, // Better compatibility on Vercel
+                logging: false,
+                backgroundColor: null,
+                onclone: (clonedDoc) => {
+                    const clonedElement = clonedDoc.querySelector('.screenshot-target');
+                    if (clonedElement) {
+                        // Force all elements to be visible
+                        const allElements = clonedElement.getElementsByTagName('*');
+                        for (const el of allElements) {
+                            el.style.display = getComputedStyle(el).display;
+                            el.style.visibility = 'visible';
+                        }
+                        // Force container visibility
+                        clonedElement.style.display = 'flex';
+                        clonedElement.style.visibility = 'visible';
+                        clonedElement.style.position = 'relative';
+                        clonedElement.style.width = '100%';
+                    }
+                }
+            });
+
+            // Add padding to the screenshot
+            const paddedCanvas = document.createElement('canvas');
+            const padding = 20;
+            paddedCanvas.width = canvas.width + padding * 2;
+            paddedCanvas.height = canvas.height + padding * 2;
+
+            const ctx = paddedCanvas.getContext('2d');
+            // Use getComputedStyle to match your app's background
+            const bgColor = getComputedStyle(document.body).backgroundColor;
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+            ctx.drawImage(canvas, padding, padding);
+
+            // Convert to blob instead of data URL for better performance
+            const blob = await new Promise((resolve) => paddedCanvas.toBlob(resolve, 'image/png'));
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            // use the title as the filename
+            link.download = `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`;
+            link.click();
+
+            // Cleanup
+            URL.revokeObjectURL(url);
+
+            toast('Screenshot captured and downloaded!', {
+                type: 'success',
+                duration: 2000
+            });
+        } catch (error) {
+            console.error('Screenshot error:', error);
+            toast.error('Failed to capture screenshot. Please try again.');
+        } finally {
+            isCapturing = false;
+        }
     };
+
     const REPORT_REASONS = {
         INAPPROPRIATE: {
             label: 'inappropriate_content',
