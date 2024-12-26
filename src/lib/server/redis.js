@@ -172,7 +172,6 @@ export async function getGame(gameId) {
 
     // Fetch game details from Redis
     const game = await redis.hgetall(`game:${gameId}`);
-
     if (!game) {
         throw new Error('Game not found');
     }
@@ -188,14 +187,13 @@ export async function getGame(gameId) {
 export async function searchGames(query) {
     // Get all game keys
     const allGameKeys = await redis.keys('game:*');
-    console.log('allGameKeys:', allGameKeys);
+
     // Fetch game details
     const games = await Promise.all(
         allGameKeys.map(async (key) => {
             return await redis.hgetall(key);
         })
     );
-    console.log('games:', games);
 
     // Filter games by title
     return games.filter((game) => game.title.toLowerCase().includes(query.toLowerCase()));
