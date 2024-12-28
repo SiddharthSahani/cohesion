@@ -43,6 +43,7 @@
         "motion": "^11.11.17",
         "nanoid": "^5.0.9",
         "posthog-js": "^1.203.1",
+        "posthog-node": "^4.3.2",
         "utf-8-validate": "^6.0.5"
     }
 }

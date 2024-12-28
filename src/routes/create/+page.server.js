@@ -1,10 +1,14 @@
 import { createGame } from '$lib/server/redis';
 import { fail, redirect } from '@sveltejs/kit';
-
+import { PostHog } from 'posthog-node';
+import { PUBLIC_ORIGIN, PUBLIC_POSTHOG_KEY } from '$env/static/public';
 export const actions = {
     default: async ({ request, locals }) => {
         // Validate session
         const session = await locals.getSession();
+        const posthog = new PostHog(PUBLIC_POSTHOG_KEY, {
+            host: 'https://us.i.posthog.com'
+        });
         if (!session?.user) {
             return fail(401, { message: 'You must be logged in to create a game' });
         }
@@ -43,7 +47,16 @@ export const actions = {
         try {
             // If you want to actually create the game, uncomment this
             const gameId = await createGame(session.user.email, { title, clusters, flair });
-
+            posthog.capture({
+                distinctId: session.user.email,
+                event: 'Game Created',
+                properties: {
+                    gameId,
+                    title,
+                    clusters
+                }
+            });
+            await posthog.shutdown();
             // Use throw redirect with 303 status
             throw redirect(303, `/games/${gameId}`);
         } catch (error) {
