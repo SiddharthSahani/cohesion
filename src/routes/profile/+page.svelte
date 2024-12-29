@@ -1,21 +1,27 @@
 <script>
     import Card from '$lib/components/ui/card/card.svelte';
+    import SignInCard from '$lib/components/SignInCard.svelte';
+    import { SignOut } from '@auth/sveltekit/components';
     import { Trash2 } from 'lucide-svelte';
     import { ChartArea, LogOut } from 'lucide-svelte';
-    import { enhance } from '$app/forms';
-    import { SignOut } from '@auth/sveltekit/components';
-    import SignInCard from '$lib/components/SignInCard.svelte';
     import { on } from 'svelte/events';
+    import { enhance } from '$app/forms';
     import { page } from '$app/stores';
+
     let { data } = $props();
-    let validGames = $derived(data.games.filter((game) => game !== null));
+    let games = $state(data.games);
+    let validGames = $derived(games.filter((game) => game !== null));
     let totalPlays = $derived(validGames.reduce((acc, game) => acc + (game.playCount || 0), 0));
+
+    const removeGame = (gameId) => {
+        games = games.filter((game) => game.id !== gameId);
+    };
 
     function handleEnhance() {
         return async ({ result }) => {
             if (result.type === 'success') {
-                // Invalidate all data to force a refresh
-                await invalidateAll();
+                const deletedGame = result.data.gameId;
+                removeGame(deletedGame);
             }
         };
     }

@@ -27,7 +27,7 @@ export const actions = {
             }
 
             await deleteGame(userId, gameId);
-            return { success: true };
+            return { success: true, gameId };
         } catch (error) {
             return fail(500, { message: 'Failed to delete game' });
         }
