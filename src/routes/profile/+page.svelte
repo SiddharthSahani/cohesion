@@ -102,7 +102,7 @@
                                         <div class="flex flex-wrap gap-2">
                                             {#each cluster.words as word}
                                                 <span
-                                                    class="select-none rounded-full bg-white/10 px-3 py-1 text-sm backdrop-blur-sm transition-colors duration-200"
+                                                    class="select-none rounded-full bg-white/10 px-3 py-1 text-sm capitalize backdrop-blur-sm transition-colors duration-200"
                                                 >
                                                     {word}
                                                 </span>
