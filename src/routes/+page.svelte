@@ -109,7 +109,7 @@
                 </div>
                 <div class="flex flex-col gap-4">
                     <div class="text-2xl font-bold text-foreground">Trending Cohesions</div>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex h-full flex-col gap-3 overflow-y-auto py-4">
                         {#each visibleBoards as board}
                             <BoardCard {...board} />
                         {/each}

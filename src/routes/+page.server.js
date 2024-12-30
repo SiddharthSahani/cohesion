@@ -3,7 +3,7 @@ import { queryGames } from '$lib/server/redis';
 export const load = async ({ params }) => {
     console.log('fetching trending boards');
 
-    const boards = (await queryGames({ sortBy: 'playCount', order: 'desc', limit: 10 })).map(
+    const boards = (await queryGames({ sortBy: 'playCount', order: 'desc', limit: 100 })).map(
         (game) => ({
             id: game.id,
             name: game.title,
