@@ -111,3 +111,53 @@
         color: #0b0b08;
     }
 }
+
+.screenshot-target {
+    font-family:
+        'YourFontFamily',
+        system-ui,
+        -apple-system,
+        sans-serif !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    perspective: 1000px !important;
+    line-height: normal !important;
+    background-color: var(--background) !important;
+}
+
+/* Ensure all text elements within the screenshot have explicit styles */
+.screenshot-target * {
+    line-height: normal !important;
+    position: relative !important;
+    color: currentColor !important;
+}
+
+.screenshot-target .text-sm {
+    line-height: 1.2 !important;
+    font-size: 0.875rem !important;
+}
+
+.screenshot-target .text-lg {
+    line-height: 1.4 !important;
+    font-size: 1.125rem !important;
+}
+
+/* Add specific styles for grid elements */
+.screenshot-target .grid {
+    display: grid !important;
+    gap: 0.5rem !important;
+}
+
+.screenshot-target .border {
+    border-width: 1px !important;
+}
+
+.screenshot-target .rounded-lg {
+    border-radius: 0.5rem !important;
+}
+
+.screenshot-target .bg-secondary\/20 {
+    background-color: rgba(var(--secondary), 0.2) !important;
+}

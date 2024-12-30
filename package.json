@@ -44,6 +44,7 @@
         "nanoid": "^5.0.9",
         "posthog-js": "^1.203.1",
         "posthog-node": "^4.3.2",
+        "supports-color": "^10.0.0",
         "utf-8-validate": "^6.0.5"
     }
 }
