@@ -333,7 +333,7 @@
                         <button
                             onclick={handleCopy}
                             type="text"
-                            class="flex w-full items-center justify-start rounded-sm border border-neutral-200/50 bg-neutral-100/50 px-4 py-1 text-sm font-bold ring-0 focus:ring-0 dark:border-neutral-700/50 dark:bg-neutral-800/50"
+                            class="flex w-full items-center justify-start rounded-sm border border-neutral-200/50 bg-neutral-100/50 px-4 py-2 text-sm font-bold ring-0 focus:ring-0 dark:border-neutral-700/50 dark:bg-neutral-800/50"
                         >
                             <Link
                                 size="16"
@@ -344,12 +344,12 @@
                                 {window.location.host + window.location.pathname}
                             </span>
                         </button>
-                        <button
+                        <!-- <button
                             onclick={handleScreenshot}
                             class="rounded-lg border border-neutral-200/50 bg-neutral-100/20 p-2 transition-colors hover:bg-neutral-100/30 dark:border-neutral-700/50 dark:bg-neutral-800/20 dark:hover:bg-neutral-800/30"
                         >
                             <Camera size="24" strokeWidth="2.5" class="text-primary" />
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
