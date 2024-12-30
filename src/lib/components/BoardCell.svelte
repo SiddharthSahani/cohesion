@@ -1,7 +1,7 @@
 <script>
     import { animate } from 'motion';
     import { onMount } from 'svelte';
-
+    import * as Tooltip from '$lib/components/ui/tooltip/index.js';
     let { text, isSelected, isUsed, isWrong, selectCellFn } = $props();
     let buttonElement;
 
@@ -70,7 +70,17 @@
         </div>
     {/if}
 
-    <span class="relative z-10 truncate capitalize">{text}</span>
+    <Tooltip.Provider>
+        <Tooltip.Root>
+            <Tooltip.Trigger>
+                <span class="relative z-10 h-full w-full truncate capitalize">{text}</span
+                ></Tooltip.Trigger
+            >
+            <Tooltip.Content>
+                <span class=" ">{text}</span>
+            </Tooltip.Content>
+        </Tooltip.Root>
+    </Tooltip.Provider>
 </button>
 
 <style>

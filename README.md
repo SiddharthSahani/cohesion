@@ -6,7 +6,7 @@ Connections like game where you can create custom games and play with your frien
 
 ## How to play
 
-[![Cohesion Demo](https://img.youtube.com/vi/ndDnEObFi_U/0.jpg)](https://www.youtube.com/watch?v=ndDnEObFi_U)
+<!-- [![Cohesion Demo](https://img.youtube.com/vi/ndDnEObFi_U/0.jpg)](https://www.youtube.com/watch?v=ndDnEObFi_U) -->
 
 Select words with something in common and click submit. You win if you correctly guess the commonality between all the words.
 

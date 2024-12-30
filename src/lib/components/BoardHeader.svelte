@@ -196,7 +196,7 @@
         >
             <Shuffle size="24" strokeWidth="3" />
         </button>
-        <SubmitButton {submitFn} {submitEnable} />
+        <SubmitButton {submitFn} enable={submitEnable} />
     </div>
 </div>
 
@@ -341,7 +341,7 @@
                                 class="relative z-30 mr-2 text-primary"
                             />
                             <span class="flex gap-2 {isCapturing ? '-translate-y-2' : ''}">
-                                {window.location.href}
+                                {window.location.host + window.location.pathname}
                             </span>
                         </button>
                         <button
