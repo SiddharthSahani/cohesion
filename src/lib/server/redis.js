@@ -109,25 +109,6 @@ export async function queryGames(options = {}) {
     return games.slice(0, limit);
 }
 
-/**
- * Update an existing game
- * @param {string} gameId - ID of the game to update
- * @param {Object} updateData - Data to update
- * @returns {Promise<Object>} - Updated game
- */
-export async function updateGame(gameId, updateData) {
-    // Validate input
-    if (!gameId) throw new Error('Game ID is required');
-
-    // Update game in Redis
-    await redis.hmset(`game:${gameId}`, {
-        ...updateData,
-        updatedAt: new Date().toISOString()
-    });
-
-    // Return updated game
-    return await redis.hgetall(`game:${gameId}`);
-}
 
 /**
  * Delete a game
