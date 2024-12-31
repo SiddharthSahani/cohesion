@@ -168,23 +168,3 @@ export async function getGame(gameId) {
 
     return game;
 }
-
-/**
- * Search games by title
- * @param {string} query - Search query
- * @returns {Promise<Array>} - List of games
- */
-export async function searchGames(query) {
-    // Get all game keys
-    const allGameKeys = await redis.keys('game:*');
-
-    // Fetch game details
-    const games = await Promise.all(
-        allGameKeys.map(async (key) => {
-            return await redis.hgetall(key);
-        })
-    );
-
-    // Filter games by title
-    return games.filter((game) => game.title.toLowerCase().includes(query.toLowerCase()));
-}
