@@ -20,13 +20,14 @@ export const actions = {
         try {
             const formData = await request.formData();
             const gameId = formData.get('gameId');
+            const gameTitle = formData.get('gameTitle');
             const userId = session.user.email;
 
             if (!gameId) {
                 return fail(400, { message: 'Game ID is required' });
             }
 
-            await deleteGame(userId, gameId);
+            await deleteGame(userId, gameId, gameTitle);
             return { success: true, gameId };
         } catch (error) {
             return fail(500, { message: 'Failed to delete game' });

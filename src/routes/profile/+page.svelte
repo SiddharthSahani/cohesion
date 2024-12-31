@@ -79,6 +79,7 @@
                                         class="inline"
                                     >
                                         <input type="hidden" name="gameId" value={game.id} />
+                                        <input type="hidden" name="gameTitle" value={game.title} />
                                         <button
                                             type="submit"
                                             class="delete-btn rounded-md p-2 transition-opacity duration-200 hover:bg-black/20 hover:text-red-400 group-hover:opacity-100"

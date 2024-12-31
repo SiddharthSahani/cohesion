@@ -48,6 +48,15 @@ export async function createGame(userId, gameData) {
     // Create a user-to-games index
     await redis.sadd(`user:${userId}:games`, gameId);
 
+    // adding to sorted set
+    await redis.zadd(`trending`, {
+        score: 0,
+        member: {
+            id: gameId,
+            title: gameData.title
+        }
+    });
+
     return gameId;
 }
 
@@ -76,46 +85,35 @@ export async function getUserGames(userId) {
  * @returns {Promise<Array>} - Sorted list of games
  */
 export async function queryGames(options = {}) {
-    const { sortBy = 'createdAt', order = 'desc', limit = 10, flair } = options;
+    const { limit = 10, flair } = options;
 
-    // Get all game keys
-    const allGameKeys = await redis.keys('game:*');
-
-    // Fetch game details
-
-    const games = await Promise.all(
-        allGameKeys.map(async (key) => {
-            return await redis.hgetall(key);
-        })
-    );
-
-    // Sort games
-    games.sort((a, b) => {
-        if (a.playCount < b.playCount) {
-            return order === 'asc' ? -1 : 1;
-        }
-        if (a.playCount > b.playCount) {
-            return order === 'asc' ? 1 : -1;
-        }
-        return 0;
+    const trendingGames = await redis.zrange('trending', 0, -1, {
+        withScores: true,
+        rev: true,
+        count: limit
     });
 
-    // Filter games by flair
-    if (flair) {
-        return games.filter((game) => game.flair === flair);
+    const ret = [];
+    for (let i = 0; i < trendingGames.length; i += 2) {
+        const { id, title } = trendingGames[i];
+        if (!id || id == '') continue;
+        const score = trendingGames[i + 1];
+        ret.push({
+            id,
+            title,
+            playCount: score
+        });
     }
 
-    // Limit games
-    return games.slice(0, limit);
+    return ret;
 }
-
 
 /**
  * Delete a game
  * @param {string} userId - ID of the user deleting the game
  * @param {string} gameId - ID of the game to delete
  */
-export async function deleteGame(userId, gameId) {
+export async function deleteGame(userId, gameId, gameTitle) {
     // Validate input
     if (!userId || !gameId) throw new Error('User ID and Game ID are required');
 
@@ -124,14 +122,24 @@ export async function deleteGame(userId, gameId) {
 
     // Delete the game
     await redis.del(`game:${gameId}`);
+
+    // removing from sorted sets
+    await redis.zrem(`trending`, {
+        id: gameId,
+        title: gameTitle
+    });
 }
 
 /**
  * Increment play count for a game
  * @param {string} gameId - ID of the game
  */
-export async function incrementPlayCount(gameId) {
+export async function incrementPlayCount(gameId, gameTitle) {
     await redis.hincrby(`game:${gameId}`, 'playCount', 1);
+    await redis.zincrby(`trending`, 1, {
+        id: gameId,
+        title: gameTitle
+    });
 }
 
 /**

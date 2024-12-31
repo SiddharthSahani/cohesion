@@ -2,11 +2,11 @@ import { incrementPlayCount, incrementWinCount } from '$lib/server/redis';
 import { json } from '@sveltejs/kit';
 
 export async function POST({ params, request }) {
-    const { gameId } = await request.json();
+    const { gameId, gameTitle } = await request.json();
 
     try {
         if (params.action === 'play') {
-            await incrementPlayCount(gameId);
+            await incrementPlayCount(gameId, gameTitle);
         } else if (params.action === 'win') {
             await incrementWinCount(gameId);
         }

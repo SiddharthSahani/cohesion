@@ -26,7 +26,7 @@
 
     async function handleGamePlay() {
         try {
-            await incrementPlay(data.game_id);
+            await incrementPlay(data.game_id, data.board_title);
         } catch (error) {
             console.error('Error:', error);
         }

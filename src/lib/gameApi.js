@@ -1,10 +1,10 @@
-export async function incrementPlay(gameId) {
+export async function incrementPlay(gameId, gameTitle) {
     const response = await fetch('/api/game/play', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ gameId })
+        body: JSON.stringify({ gameId, gameTitle })
     });
 
     if (!response.ok) throw new Error('Failed to increment play count');
