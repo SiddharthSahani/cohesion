@@ -10,7 +10,11 @@
 
     let { data } = $props();
     let games = $state(data.games);
-    let validGames = $derived(games.filter((game) => game !== null));
+    let validGames = $derived(
+        games
+            .filter((game) => game !== null)
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    );
     let totalPlays = $derived(validGames.reduce((acc, game) => acc + (game.playCount || 0), 0));
 
     const removeGame = (gameId) => {
