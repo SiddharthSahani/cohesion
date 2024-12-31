@@ -1,12 +1,17 @@
 <script>
-    import { Plus, Search, Star } from 'lucide-svelte';
     import BoardCard from '$lib/components/BoardCard.svelte';
+    import { Plus, Search, Star } from 'lucide-svelte';
     import { animate } from 'motion';
+
     let { data } = $props();
     let searchInput = $state('');
 
     const visibleBoards = $derived(
         data.boards.filter((board) => {
+            if (!board || !board.name || !board.id) {
+                console.log('Invalid board while searching:', board);
+                return false;
+            }
             const boardName = board.name.toLowerCase();
             const search = searchInput.toLowerCase();
             return boardName.includes(search);
