@@ -1,7 +1,7 @@
 <script>
     import { page } from '$app/stores';
 
-    $: isRateLimit = $page.error?.message?.includes('max daily request limit exceeded');
+    let isRateLimit = $derived($page.error?.message?.includes('max daily request limit exceeded'));
 </script>
 
 <main class="container flex min-h-full flex-col items-center justify-center gap-4 px-4 py-12">
