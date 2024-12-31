@@ -25,6 +25,7 @@
 <a
     class="flex w-full items-center justify-between rounded-md bg-secondary/50 p-4 hover:bg-secondary/60"
     href="/games/{id}"
+    data-sveltekit-preload-data="tap"
     use:handleEnter
     onoutrostart={handleLeave}
 >
