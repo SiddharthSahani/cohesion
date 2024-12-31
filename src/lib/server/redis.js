@@ -104,6 +104,7 @@ export async function queryGames(options = {}) {
             playCount: score
         });
     }
+    // console.log('trending games', ret);
 
     return ret;
 }
