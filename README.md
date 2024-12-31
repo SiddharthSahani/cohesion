@@ -6,11 +6,7 @@ Connections like game where you can create custom games and play with your frien
 
 ## How to play
 
-
-
 https://github.com/user-attachments/assets/dfffcb2a-74df-448d-8d5f-e5a6c409a6c9
-
-
 
 <!-- [![Cohesion Demo](https://img.youtube.com/vi/ndDnEObFi_U/0.jpg)](https://www.youtube.com/watch?v=ndDnEObFi_U) -->
 
