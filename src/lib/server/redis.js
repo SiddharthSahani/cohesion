@@ -42,20 +42,20 @@ export async function createGame(userId, gameData) {
         clusters: gameData.clusters
     };
 
-    // Store game in Redis
-    await redis.hmset(`game:${gameId}`, game);
-
-    // Create a user-to-games index
-    await redis.sadd(`user:${userId}:games`, gameId);
-
-    // adding to sorted set
-    await redis.zadd(`trending`, {
-        score: 0,
-        member: {
-            id: gameId,
-            title: gameData.title
-        }
-    });
+    await Promise.all([
+        // storing game
+        redis.hmset(`game:${gameId}`, game),
+        // storing game to user games set
+        redis.sadd(`user:${userId}:games`, gameId),
+        // adding to sorted set
+        redis.zadd(`trending`, {
+            score: 0,
+            member: {
+                id: gameId,
+                title: gameData.title
+            }
+        })
+    ]);
 
     return gameId;
 }
@@ -71,8 +71,8 @@ export async function getUserGames(userId) {
 
     // Fetch details for each game
     const games = await Promise.all(
-        gameIds.map(async (gameId) => {
-            return await redis.hgetall(`game:${gameId}`);
+        gameIds.map((gameId) => {
+            return redis.hgetall(`game:${gameId}`);
         })
     );
 
@@ -104,7 +104,6 @@ export async function queryGames(options = {}) {
             playCount: score
         });
     }
-    // console.log('trending games', ret);
 
     return ret;
 }
@@ -113,34 +112,40 @@ export async function queryGames(options = {}) {
  * Delete a game
  * @param {string} userId - ID of the user deleting the game
  * @param {string} gameId - ID of the game to delete
+ * @param {string} gameTitle - Title of the game to delete
  */
 export async function deleteGame(userId, gameId, gameTitle) {
     // Validate input
     if (!userId || !gameId) throw new Error('User ID and Game ID are required');
 
-    // Remove game from user's game list
-    await redis.srem(`user:${userId}:games`, gameId);
-
-    // Delete the game
-    await redis.del(`game:${gameId}`);
-
-    // removing from sorted sets
-    await redis.zrem(`trending`, {
-        id: gameId,
-        title: gameTitle
-    });
+    await Promise.all([
+        // deleting game key
+        redis.del(`game:${gameId}`),
+        // removing game from user's games set
+        redis.srem(`user:${userId}:games`, gameId),
+        // removing from sorted set
+        redis.zrem(`trending`, {
+            id: gameId,
+            title: gameTitle
+        })
+    ]);
 }
 
 /**
  * Increment play count for a game
  * @param {string} gameId - ID of the game
+ * @param {string} gameTitle - Title of the game
  */
 export async function incrementPlayCount(gameId, gameTitle) {
-    await redis.hincrby(`game:${gameId}`, 'playCount', 1);
-    await redis.zincrby(`trending`, 1, {
-        id: gameId,
-        title: gameTitle
-    });
+    await Promise.all([
+        // incrementing play count for the game
+        redis.hincrby(`game:${gameId}`, 'playCount', 1),
+        // incrementing score for the game in the sorted set
+        redis.zincrby(`trending`, 1, {
+            id: gameId,
+            title: gameTitle
+        })
+    ]);
 }
 
 /**
