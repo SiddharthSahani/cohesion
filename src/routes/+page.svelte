@@ -1,8 +1,10 @@
 <script>
     import BoardCard from '$lib/components/BoardCard.svelte';
-    import { Plus, Search, Star } from 'lucide-svelte';
+    import { Plus, Search, Star,Github } from 'lucide-svelte';
     import { animate } from 'motion';
-
+    import PromoButton from '$lib/components/PromoButton.svelte';
+    import Peerlist from '$lib/components/icons/Peerlist.svelte';
+    import ProductHunt from '$lib/components/icons/ProductHunt.svelte';
     let { data } = $props();
     let searchInput = $state('');
 
@@ -17,29 +19,7 @@
             return boardName.includes(search);
         })
     );
-
-    function handleStarHover(node) {
-        node.addEventListener('mouseenter', () => {
-            animate(node, {
-                duration: 0.6,
-                easing: 'ease-in-out'
-            });
-
-            const starIcon = node.querySelector('.star-icon');
-            animate(
-                starIcon,
-                {
-                    scale: [1, 1.05, 1]
-                },
-                {
-                    duration: 0.6,
-                    easing: 'ease-in-out'
-                }
-            );
-        });
-    }
-
-    // Bouncy animation for the Create New button
+ 
     function handleCreateHover(node) {
         node.addEventListener('mouseenter', () => {
             animate(
@@ -70,23 +50,25 @@
 </script>
 
 <section class="flex h-full w-full max-w-7xl items-center">
-    <div class="flex h-full w-full flex-col gap-4 p-4">
-        <div class="rounded-md bg-secondary/50 px-4 py-2">
-            <a
-                href="https://github.com/SiddharthSahani/Cohesion"
-                class="text-md flex h-full w-full select-none items-center justify-start gap-1 truncate font-bold text-foreground"
-                use:handleStarHover
-            >
-                <Star size="20" strokeWidth="2.5" class="star-icon" />
-
-                <span class="text-md truncate px-1 font-bold text-foreground">
-                    Our Code is Public on GitHub, feel free to Star it!</span
-                >
-            </a>
-        </div>
+    <div class="flex h-full w-full flex-col gap-2 p-4">
         <div class="flex-grow sm:w-full">
+            <section class="flex h-auto flex-col items-center gap-2 py-4 md:flex-row">
+                <PromoButton href="https://www.producthunt.com/products/cohesion-2">
+                    <ProductHunt size="16" />
+                    <div class="text-md font-medium text-foreground">Upvote on ProductHunt</div>
+                </PromoButton>
+                <PromoButton href="https://github.com/SiddharthSahani/cohesion">
+                    <Github size="16" strokeWidth="3" />
+                    <div class="text-md font-medium text-foreground">We are Open Source</div>
+                </PromoButton>
+                <PromoButton href="https://peerlist.io/tejasbhovad/project/cohesion">
+                    <Peerlist size="16" strokeWidth="3" />
+                    <div class="text-md font-medium text-foreground">Launched on Peerlist</div>
+                </PromoButton>
+            </section>
+
             <div class="flex h-32 flex-col gap-4">
-                <div class="flex gap-4 rounded-sm bg-foreground/[4.5%] p-2">
+                <div class="flex gap-4 rounded-sm bg-foreground/0 p-0">
                     <a
                         class="flex items-center gap-1 rounded-sm bg-accent px-4 py-1 text-foreground hover:bg-accent/90 dark:text-background"
                         href="/create"
@@ -110,15 +92,13 @@
                             placeholder="Search Cohesions"
                         />
                     </div>
-                    <!--  -->
                 </div>
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-0">
                     <div class="text-2xl font-bold text-foreground">Trending Cohesions</div>
                     <div class="flex h-full flex-col gap-3 overflow-y-auto py-4">
                         {#each visibleBoards as board}
                             <BoardCard {...board} />
                         {/each}
-                        <!-- {JSON.stringify(visibleBoards)} -->
                     </div>
                 </div>
             </div>
