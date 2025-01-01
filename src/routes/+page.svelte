@@ -7,7 +7,7 @@
 
     const visibleBoards = $derived(
         data.boards.filter((board) => {
-            const boardName = board.name.toLowerCase();
+            const boardName = board.title?.toLowerCase() || '';
             const search = searchInput.toLowerCase();
             return boardName.includes(search);
         })
