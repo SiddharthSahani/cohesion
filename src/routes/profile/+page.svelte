@@ -9,28 +9,27 @@
 
     let { data } = $props();
     let games = $state(data.games);
-    
+
     let validGames = $derived(
         games
             .filter((game) => game !== null)
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     );
-    
+
     let totalPlays = $derived(validGames.reduce((acc, game) => acc + (game.playCount || 0), 0));
 
     const removeGame = (gameId) => {
- 
-    games = [...games.filter((game) => game.id !== gameId)];
-};
-
-function handleEnhance() {
-    return async ({ result }) => {
-        if (result.type === 'success') {
-            const deletedGame = result.data.gameId;
-            removeGame(deletedGame);
-        }
+        games = [...games.filter((game) => game.id !== gameId)];
     };
-}
+
+    function handleEnhance() {
+        return async ({ result }) => {
+            if (result.type === 'success') {
+                const deletedGame = result.data.gameId;
+                removeGame(deletedGame);
+            }
+        };
+    }
 </script>
 
 {#if $page.data.session}

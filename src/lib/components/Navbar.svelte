@@ -3,7 +3,7 @@
     import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
     import { page } from '$app/stores';
     import { SignOut } from '@auth/sveltekit/components';
-    import * as Popover from "$lib/components/ui/popover/index.js";
+    import * as Popover from '$lib/components/ui/popover/index.js';
     let imageError = $state(false);
 
     function handleImageError() {
@@ -23,8 +23,8 @@
                 <Popover.Trigger class="h-12 w-12 overflow-hidden rounded-full">
                     <img
                         class="aspect-square h-full w-12 rounded-full object-cover {imageError
-                        ? 'hidden'
-                        : ''}"
+                            ? 'hidden'
+                            : ''}"
                         src={$page.data.session.user.image}
                         alt="Profile picture of {$page.data.session.user.name || 'user'}"
                         onerror={handleImageError}
