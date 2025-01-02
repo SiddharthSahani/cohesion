@@ -1,6 +1,6 @@
 <script>
     import BoardCard from '$lib/components/BoardCard.svelte';
-    import { Plus, Search, Star,Github } from 'lucide-svelte';
+    import { Plus, Search, Star, Github } from 'lucide-svelte';
     import { animate } from 'motion';
     import PromoButton from '$lib/components/PromoButton.svelte';
     import Peerlist from '$lib/components/icons/Peerlist.svelte';
@@ -19,7 +19,7 @@
             return boardName.includes(search);
         })
     );
- 
+
     function handleCreateHover(node) {
         node.addEventListener('mouseenter', () => {
             animate(
@@ -53,7 +53,9 @@
     <div class="flex h-full w-full flex-col gap-2 p-4">
         <div class="flex-grow sm:w-full">
             <section class="flex h-auto flex-col items-center gap-2 py-4 md:flex-row">
-                <PromoButton href="https://www.producthunt.com/products/cohesion-2">
+                <PromoButton
+                    href="https://www.producthunt.com/posts/cohesion-game?utm_source=other&utm_medium=social"
+                >
                     <ProductHunt size="16" />
                     <div class="text-md font-medium text-foreground">Upvote on ProductHunt</div>
                 </PromoButton>

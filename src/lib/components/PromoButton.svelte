@@ -1,7 +1,7 @@
 <!-- PromoButton.svelte -->
 <script>
-    export let href = "";
-    export let type = "button";
+    export let href = '';
+    export let type = 'button';
     export let disabled = false;
 </script>
 
